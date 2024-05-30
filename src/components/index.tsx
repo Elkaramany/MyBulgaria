@@ -5,6 +5,7 @@ import Spinner from './spinner';
 import Text from './text';
 import Button from './button';
 import Header from './header'
+import Seperator from './Seperator';
 
 export {
     Container,
@@ -13,5 +14,6 @@ export {
     Spinner,
     Text,
     Button,
-    Header
+    Header,
+    Seperator
 };

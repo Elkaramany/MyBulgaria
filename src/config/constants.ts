@@ -1,4 +1,4 @@
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Platform, StyleSheet, Dimensions } from 'react-native';
 import { colors } from './colors'
 import { fonts, fontSizes, fontWeights } from './fonts';
@@ -42,7 +42,7 @@ const globalStyles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginBottom: verticalScale(15),
-    },
+    }
 })
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, TouchableOpacity } from 'react-native';
 import { colors, fontSizes, fontWeights, globalStyles, lineHeights, validatePassword } from '@config';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -12,10 +12,11 @@ interface Props extends TextInputProps {
     placeholder?: string
     hint?: string
     buttonStyle?: ViewStyle
+    onRightIconPress?: () => void
 }
 
 const Input: React.FC<Props> = ({
-    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, ...rest
+    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, ...rest
 }) => {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -23,45 +24,47 @@ const Input: React.FC<Props> = ({
     const handleBlur = () => setIsFocused(false);
 
     return (
-        <TouchableWithoutFeedback
-            style={[{
-                backgroundColor: colors.ui.disabled,
-                borderColor: isFocused ? colors.brand.secondary : colors.ui.secondary,
-                borderBottomWidth: 2,
-                borderRadius: verticalScale(2),
-                paddingHorizontal: scale(10),
-                width: '100%',
-            }, buttonStyle]}
-            onPress={() => handleFocus()}>
+        <>
+
             {label &&
                 <Text
                     value={label}
-                    style={[styles.labelStyle, { color: isFocused ? colors.brand.secondary : colors.text.secondary }]}
+                    bold
+                    button
+                    style={styles.labelStyle}
                 />
             }
-            <View style={styles.inputContainer}>
-                {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
-                <TextInput
-                    style={[
-                        styles.input,
-                        {
-                            paddingLeft: leftIcon ? 15 : 0,
-                            paddingRight: rightIcon ? 15 : 0,
-                        },
-                    ]}
-                    placeholder={placeholder}
-                    placeholderTextColor={colors.text.secondary}
-                    value={value}
-                    onChangeText={onChangeText}
-                    secureTextEntry={secureTextEntry}
-                    onSubmitEditing={onSubmitEditing}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    {...rest}
-                />
-                {rightIcon && <View style={styles.iconContainer}>{rightIcon}</View>}
-            </View>
-        </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+                style={[{
+                    backgroundColor: colors.bg.primary,
+                    borderColor: colors.bg.tertiary,
+                    borderWidth: 2,
+                    borderRadius: 15,
+                }, buttonStyle]}
+                onPress={() => handleFocus()}>
+                <View style={styles.inputContainer}>
+                    {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
+                    <TextInput
+                        style={styles.input}
+                        placeholder={placeholder}
+                        placeholderTextColor={colors.text.disabled}
+                        value={value}
+                        onChangeText={onChangeText}
+                        secureTextEntry={secureTextEntry}
+                        onSubmitEditing={onSubmitEditing}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        {...rest}
+                    />
+                    {rightIcon &&
+                        <TouchableOpacity
+                            onPress={() => onRightIconPress()}
+                            style={styles.iconContainer}>
+                            {rightIcon}
+                        </TouchableOpacity>}
+                </View>
+            </TouchableWithoutFeedback>
+        </>
     );
 };
 
@@ -71,19 +74,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     iconContainer: {
-        paddingHorizontal: 10,
+        flex: 1,
+        alignItems: 'flex-end',
+        paddingRight: 10
     },
     input: {
-        paddingVertical: verticalScale(5),
-        marginBottom: verticalScale(3.5),
+        paddingVertical: scale(11),
+        paddingHorizontal: scale(12),
         fontSize: fontSizes.button,
         fontWeight: fontWeights.regular,
-        color: colors.text.primary,
+        color: colors.text.secondary,
     }, labelStyle: {
-        fontSize: fontSizes.body,
-        marginTop: lineHeights.copy,
-        fontWeight: fontWeights.medium,
-        color: colors.text.secondary
+        color: colors.text.secondary,
+        marginTop: 15,
+        marginBottom: 8
     }
 });
 

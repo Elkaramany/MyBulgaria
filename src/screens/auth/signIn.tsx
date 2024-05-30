@@ -1,21 +1,22 @@
 import React from 'react';
-import { View, Image, ImageBackground, StyleSheet, Animated } from 'react-native';
+import { View, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 
 import Background from './Background';
-import { Container, Input, Header, Text, Button } from '@components';
+import { Container, Input, Header, Text, Button, Seperator } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { PlusIcon, WatermelonSVG, homeBg } from '@assets';
-import { WIDTH, colors, globalStyles } from '@config';
-import { scale } from 'react-native-size-matters';
+import { LogoSVG, EyeSVG, EyeUnlockSVG } from '@assets';
+import { WIDTH, HEIGHT, colors, globalStyles } from '@config';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { signIn } from '@request';
 
 interface Props {
-    navigation: AuthStacknavigationProp<'Login'>,
+    navigation: AuthStacknavigationProp<'SignIn'>,
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, setEmail, password, setPassowrd, name, setAuthState, onResetAuthState } = useAuthActions()
+    const { email, setEmail, password, setPassowrd } = useAuthActions()
+    const [securePassword, setSecurePassword] = React.useState(true)
 
 
     const trySignIn = async () => {
@@ -31,41 +32,56 @@ const Login: React.FC<Props> = ({ navigation }) => {
     }
 
     return (
-        <Background>
+        <Container parentContainerStyle={{ backgroundColor: colors.bg.secondary }}>
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <LogoSVG width={WIDTH * 0.27} height={HEIGHT * 0.12} />
 
-            <View style={[globalStyles.centeredContainer, { flex: 1 }]}>
-                <Text value='' big style={{ alignSelf: 'center' }} />
-                <View style={styles.authButtonsContainer}>
-                    <Input
-                        value={email}
-                        onChangeText={(val: string) => setEmail(val)}
-                        label='E-Mail'
-                        buttonStyle={styles.authInputStyle}
-                        placeholder='john@email.com'
-                    />
-
-                    <Input
-                        value={password}
-                        onChangeText={(val: string) => setPassowrd(val)}
-                        label='Password'
-                        buttonStyle={styles.authInputStyle}
-                        placeholder='john@email.com'
-                        secureTextEntry
-                    />
-
-                    <Button
-                        value='Sign In'
-                        onPress={() => trySignIn()}
-                        icon={<PlusIcon fill={colors.text.inverse} />}
-                        buttonStyle={{ margin: scale(10), width: '85%', alignSelf: 'center' }}
-                    />
-
-
-                </View>
-
+                <Text
+                    value='Skip'
+                    button bold
+                    color={colors.text.secondary}
+                />
             </View>
+            <Text
+                value='Login'
+                h1 lightBold
+                color={colors.text.secondary}
+                style={{ marginTop: scale(45), marginBottom: scale(30) }}
+            />
 
-        </Background>
+            <Input
+                value={email}
+                onChangeText={setEmail}
+                label='Email'
+                placeholder='Email address'
+            />
+
+            <Input
+                value={password}
+                onChangeText={setPassowrd}
+                secureTextEntry={securePassword}
+                onRightIconPress={() => setSecurePassword(!securePassword)}
+                rightIcon={securePassword ? <EyeSVG /> : <EyeUnlockSVG />}
+                label='Password'
+                placeholder='Password'
+            />
+
+            <Button
+                onPress={() => { }}
+                value='Login'
+                buttonStyle={{ marginTop: 36 }}
+            />
+
+            <Button
+                onPress={() => { }}
+                value='Create account'
+                buttonStyle={{ backgroundColor: 'transparent' }}
+                textStyle={{ color: colors.text.secondary }}
+            />
+
+            <Seperator />
+
+        </Container>
     )
 }
 
@@ -78,6 +94,11 @@ const styles = StyleSheet.create({
         margin: 10,
         width: '85%',
         alignSelf: 'center'
+    }, loginButton: {
+        backgroundColor: colors.brand.primary,
+        marginTop: scale(15),
+        ...globalStyles.centeredContainer,
+        borderRadius: moderateScale(15)
     }
 })
 

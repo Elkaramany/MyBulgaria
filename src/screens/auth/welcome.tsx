@@ -1,20 +1,18 @@
 import React from 'react';
-import { View, Image, ImageBackground, StyleSheet, Animated, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import Background from './Background';
-import { Container, Input, Header, Text, Button } from '@components';
-import { useAuthActions } from '@redux';
+import { Button, Text } from '@components';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { PlusIcon, LogoSVG } from '@assets';
+import { LogoSVG } from '@assets';
 import { HEIGHT, WIDTH, colors, globalStyles } from '@config';
-import { scale } from 'react-native-size-matters';
+import { moderateScale, scale } from 'react-native-size-matters';
 
 interface Props {
-    navigation: AuthStacknavigationProp<'Login'>,
+    navigation: AuthStacknavigationProp<'Welcome'>,
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, setEmail, password, name, setAuthState, onResetAuthState } = useAuthActions()
 
     return (
         <Background>
@@ -30,17 +28,19 @@ const Login: React.FC<Props> = ({ navigation }) => {
                     style={{ textAlign: 'center' }}
                 />
 
-                <TouchableOpacity style={[styles.authButtonsContainer, styles.getStartedButton]}>
-                    <Text
-                        value={`Get Started`}
-                        title
-                        color={colors.text.secondary}
-                        bold
-                        style={{ paddingVertical: 16, paddingHorizontal: 24  }}
-                    />
+                <Button
+                    onPress={() => { }}
+                    value='Get Started'
+                    buttonStyle={{ backgroundColor: colors.bg.primary }}
+                    textStyle={{ color: colors.text.secondary }}
+                />
 
-                </TouchableOpacity>
-
+                <Button
+                    onPress={() => navigation.navigate('SignIn')}
+                    value='I already have an account'
+                    buttonStyle={styles.accountButton}
+                    textStyle={{ color: colors.text.primary }}
+                />
             </View>
 
         </Background>
@@ -57,10 +57,12 @@ const styles = StyleSheet.create({
         width: WIDTH * 0.8,
         marginTop: scale(15),
         ...globalStyles.centeredContainer,
-        borderRadius: 15
+        borderRadius: moderateScale(15)
     },
-    getStartedButton: {
-        backgroundColor: colors.bg.primary
+    accountButton: {
+        backgroundColor: 'transparent',
+        borderWidth: scale(2),
+        borderColor: colors.bg.primary,
     }
 })
 
