@@ -1,24 +1,20 @@
 import React from 'react';
-import { View, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 
-import Background from './Background';
-import { Container, Input, Header, Text, Button, Seperator } from '@components';
+import { Button } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { LogoSVG, EyeSVG, EyeUnlockSVG } from '@assets';
-import { WIDTH, HEIGHT, colors, globalStyles } from '@config';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { colors } from '@config';
+import { scale } from 'react-native-size-matters';
 import { signIn } from '@request';
+import EmailPassword from './EmailPassword';
+import Auth from './Auth';
 
 interface Props {
     navigation: AuthStacknavigationProp<'SignIn'>,
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, setEmail, password, setPassowrd } = useAuthActions()
-    const [securePassword, setSecurePassword] = React.useState(true)
-
-
+    const { email, password } = useAuthActions()
     const trySignIn = async () => {
         console.log(email, password)
         try {
@@ -32,74 +28,22 @@ const Login: React.FC<Props> = ({ navigation }) => {
     }
 
     return (
-        <Container parentContainerStyle={{ backgroundColor: colors.bg.secondary }}>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                <LogoSVG width={WIDTH * 0.27} height={HEIGHT * 0.12} />
-
-                <Text
-                    value='Skip'
-                    button bold
-                    color={colors.text.secondary}
-                />
-            </View>
-            <Text
-                value='Login'
-                h1 lightBold
-                color={colors.text.secondary}
-                style={{ marginTop: scale(45), marginBottom: scale(30) }}
-            />
-
-            <Input
-                value={email}
-                onChangeText={setEmail}
-                label='Email'
-                placeholder='Email address'
-            />
-
-            <Input
-                value={password}
-                onChangeText={setPassowrd}
-                secureTextEntry={securePassword}
-                onRightIconPress={() => setSecurePassword(!securePassword)}
-                rightIcon={securePassword ? <EyeSVG /> : <EyeUnlockSVG />}
-                label='Password'
-                placeholder='Password'
-            />
-
+        <Auth>
+            <EmailPassword title='Login' />
             <Button
                 onPress={() => { }}
                 value='Login'
-                buttonStyle={{ marginTop: 36 }}
+                buttonStyle={{ marginTop: scale(30) }}
             />
 
             <Button
-                onPress={() => { }}
+                onPress={() => navigation.navigate('SignUp')}
                 value='Create account'
                 buttonStyle={{ backgroundColor: 'transparent' }}
                 textStyle={{ color: colors.text.secondary }}
             />
-
-            <Seperator />
-
-        </Container>
+        </Auth>
     )
 }
-
-const styles = StyleSheet.create({
-    authButtonsContainer: {
-        width: '95%',
-        backgroundColor: 'rgba(240, 240, 240, 0.5)', // Semi-transparent whitish color
-        marginTop: scale(15),
-    }, authInputStyle: {
-        margin: 10,
-        width: '85%',
-        alignSelf: 'center'
-    }, loginButton: {
-        backgroundColor: colors.brand.primary,
-        marginTop: scale(15),
-        ...globalStyles.centeredContainer,
-        borderRadius: moderateScale(15)
-    }
-})
 
 export default Login

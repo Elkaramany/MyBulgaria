@@ -4,7 +4,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Background from './Background';
 import { Button, Text } from '@components';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { LogoSVG } from '@assets';
+import { LogoSVG, homeBG } from '@assets';
 import { HEIGHT, WIDTH, colors, globalStyles } from '@config';
 import { moderateScale, scale } from 'react-native-size-matters';
 
@@ -15,7 +15,7 @@ interface Props {
 const Login: React.FC<Props> = ({ navigation }) => {
 
     return (
-        <Background>
+        <Background imageSource={homeBG}>
 
             <View style={styles.logoContainer}>
                 <LogoSVG width={WIDTH * 0.48} height={HEIGHT * 0.295} />
@@ -29,7 +29,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
                 />
 
                 <Button
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate('SignUp')}
                     value='Get Started'
                     buttonStyle={{ backgroundColor: colors.bg.primary }}
                     textStyle={{ color: colors.text.secondary }}

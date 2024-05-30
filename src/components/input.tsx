@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, TouchableOpacity } from 'react-native';
-import { colors, fontSizes, fontWeights, globalStyles, lineHeights, validatePassword } from '@config';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { colors, fontSizes, fontWeights, IOS } from '@config';
+import { scale } from 'react-native-size-matters';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Text from './text'
 
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
         color: colors.text.secondary,
     }, labelStyle: {
         color: colors.text.secondary,
-        marginTop: 15,
-        marginBottom: 8
+        marginTop: IOS ? 15 : 12,
+        marginBottom: IOS ? 8 : 6
     }
 });
 

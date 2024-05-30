@@ -1,17 +1,17 @@
 import React from 'react';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, ImageSourcePropType } from 'react-native';
 
 import { homeBg } from '@assets';
 
 interface Props {
     children: React.ReactNode
+    imageSource: ImageSourcePropType
 }
 
-const Background: React.FC<Props> = ({ children }) => {
-
+const Background: React.FC<Props> = ({ children, imageSource }) => {
 
     return (
-        <ImageBackground source={homeBg} style={{ flex: 1, paddingHorizontal: '3.5%' }}>
+        <ImageBackground source={imageSource} style={{ flex: 1 }}>
             {children}
         </ImageBackground>
     )

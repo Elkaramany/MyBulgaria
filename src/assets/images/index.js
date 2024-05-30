@@ -1,15 +1,21 @@
 const logo = require('./logo.jpg')
-const homeBg = require('./home_bg.jpg')
+const homeBG = require('./home_bg.jpg')
+const authBG = require('./auth_bg.jpg')
 import PlusIcon from './plusIcon.svg'
 import LogoSVG from './logo_svg.svg'
 import EyeSVG from './eye.svg'
 import EyeUnlockSVG from './eyeUnlock.svg'
+import GoogleSVG from './google.svg'
+import FacebookSVG from './facebook.svg'
 
 export {
     logo,
-    homeBg,
+    homeBG,
+    authBG,
     PlusIcon,
     LogoSVG,
     EyeSVG,
-    EyeUnlockSVG
+    EyeUnlockSVG,
+    GoogleSVG,
+    FacebookSVG
 }
