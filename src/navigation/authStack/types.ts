@@ -3,7 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 
 // Define your stack navigator param list
 export type AuthStackParamList = {
-    Login: undefined
+    Welcome: undefined
     SignIn: undefined
     SignUp: undefined
 };

@@ -8,7 +8,7 @@ import { AuthStacknavigationProp } from '@navigationTypes';
 import { PlusIcon, WatermelonSVG, homeBg } from '@assets';
 import { WIDTH, colors, globalStyles } from '@config';
 import { scale } from 'react-native-size-matters';
-import { firebaseSignIn } from '@request';
+import { signIn } from '@request';
 
 interface Props {
     navigation: AuthStacknavigationProp<'Login'>,
@@ -21,7 +21,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
     const trySignIn = async () => {
         console.log(email, password)
         try {
-            const userData = await firebaseSignIn({ email, password });
+            const userData = await signIn({ email, password });
             console.log('User signed in:', userData);
             // Now you have access to userData containing UID, email, and name
         } catch (error) {
@@ -34,7 +34,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         <Background>
 
             <View style={[globalStyles.centeredContainer, { flex: 1 }]}>
-                <Text value='Meals To Go' big style={{ alignSelf: 'center' }} />
+                <Text value='' big style={{ alignSelf: 'center' }} />
                 <View style={styles.authButtonsContainer}>
                     <Input
                         value={email}

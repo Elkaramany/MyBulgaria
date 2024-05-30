@@ -15,4 +15,4 @@ const APIE = async (method: string, url: string, data?: any) => {
     }
 }
 
-export * from './firebase'
+export * from './authQuery'

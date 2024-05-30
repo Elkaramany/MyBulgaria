@@ -17,14 +17,14 @@ interface userData {
     name: string;
 }
 
-async function firebaseSignUp(userData: signUpData): Promise<userData> {
+async function signUp(userData: signUpData): Promise<userData> {
     return { uid: '123', email: 'test@test.com', name: 'mostafa' };
 
 }
 
-async function firebaseSignIn(signInData: signInData): Promise<userData> {
+async function signIn(signInData: signInData): Promise<userData> {
     return { uid: '123', email: 'test@test.com', name: 'mostafa' };
 }
 
 
-export { firebaseSignIn, firebaseSignUp }
+export { signUp, signIn }
