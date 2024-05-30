@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, ImageBackground, StyleSheet, Animated } from 'react-native';
+import { View, Image, ImageBackground, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 
 import Background from './Background';
 import { Container, Input, Header, Text, Button } from '@components';
@@ -22,11 +22,24 @@ const Login: React.FC<Props> = ({ navigation }) => {
             <View style={styles.logoContainer}>
                 <LogoSVG width={WIDTH * 0.48} height={HEIGHT * 0.295} />
             </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ alignItems: 'center' }}>
                 <Text value='Welcome!' h1 bold />
-                <View style={styles.authButtonsContainer}>
+                <Text
+                    value={`Lorem ipsum dolor sit amet,${`\n`} consectetur adipiscing elit. Sed eget${`\n`} placerat mauris.`}
+                    body
+                    style={{ textAlign: 'center' }}
+                />
 
-                </View>
+                <TouchableOpacity style={[styles.authButtonsContainer, styles.getStartedButton]}>
+                    <Text
+                        value={`Get Started`}
+                        title
+                        color={colors.text.secondary}
+                        bold
+                        style={{ paddingVertical: 16, paddingHorizontal: 24  }}
+                    />
+
+                </TouchableOpacity>
 
             </View>
 
@@ -41,10 +54,13 @@ const styles = StyleSheet.create({
         marginBottom: HEIGHT * 0.075,
     },
     authButtonsContainer: {
-        width: '55%',
-        alignSelf: 'center',
-        backgroundColor: 'rgba(240, 240, 240, 0.5)', // Semi-transparent whitish color
+        width: WIDTH * 0.8,
         marginTop: scale(15),
+        ...globalStyles.centeredContainer,
+        borderRadius: 15
+    },
+    getStartedButton: {
+        backgroundColor: colors.bg.primary
     }
 })
 
