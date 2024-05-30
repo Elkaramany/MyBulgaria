@@ -1,6 +1,40 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "@tsconfig/react-native/tsconfig.json", /* Recommended React Native TSConfig base */
   "compilerOptions": {
-    "strict": true
+    "jsx": "react",
+    "esModuleInterop": true,
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+    /* Completeness */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "@config": [
+        "./src/config"
+      ],
+      "@components": [
+        "./src/components"
+      ],
+      "@navigation": [
+        "./src/navigation"
+      ],
+      "@navigationTypes": [
+        "./src/navigation/types"
+      ],
+      "@screens": [
+        "./src/screens"
+      ],
+      "@redux": [
+        "./src/redux"
+      ],
+      "@assets": [
+        "./src/assets"
+      ],
+      "@request": [
+        "./src/request"
+      ],
+    }
   }
 }

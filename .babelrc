@@ -1,0 +1,20 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "*": "./src/*",
+                    "@config": "./src/config",
+                    "@components": "./src/components",
+                    "@navigation": "./src/navigation",
+                    "@navigationTypes": "./src/navigationTypes",
+                    "@screens": "./src/screens",
+                    "@assets": "./src/assets",
+                    "@redux": "./src/redux",
+                    "@request": "./src/request"
+                }
+            }
+        ]
+    ]
+}
