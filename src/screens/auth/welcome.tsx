@@ -22,8 +22,8 @@ const Login: React.FC<Props> = ({ navigation }) => {
             <View style={styles.logoContainer}>
                 <LogoSVG width={WIDTH * 0.48} height={HEIGHT * 0.295} />
             </View>
-            <View style={{ justifyContent: 'center' }}>
-                <Text value='Welcome!' big style={{ alignSelf: 'center' }} />
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text value='Welcome!' h1 bold />
                 <View style={styles.authButtonsContainer}>
 
                 </View>

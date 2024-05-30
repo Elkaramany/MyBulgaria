@@ -1,50 +1,83 @@
 import React from 'react';
 import { Text, TextStyle, ViewStyle, Platform, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { colors, fontSizes, fontWeights, IOS } from '@config';
+import { colors, fontSizes, fontWeights, fonts } from '@config';
 
 interface Props {
-    value: string
-    color?: string
+    value: string;
+    color?: string;
     style?: TextStyle | ViewStyle | Array<ViewStyle | TextStyle> | Array<TextStyle | undefined>;
-    big?: boolean
-    bigger?: boolean
-    small?: boolean
+    caption?: boolean; // Prop to specify caption font size
+    button?: boolean; // Prop to specify button font size
+    body?: boolean; // Prop to specify body font size
+    title?: boolean; // Prop to specify title font size
+    h3?: boolean; // Prop to specify h3 font size
+    h2?: boolean; // Prop to specify h2 font size
+    h1?: boolean; // Prop to specify h1 font size
+    regular?: boolean; // Prop to specify regular font weight
+    medium?: boolean; // Prop to specify medium font weight
+    lightBold?: boolean; // Prop to specify light bold font weight
+    bold?: boolean; // Prop to specify bold font weight
 }
 
-const TextComponent: React.FC<Props> = ({ value, color, style, big, bigger, small }) => {
+const TextComponent: React.FC<Props> = ({ value, color, style, caption, button, body, title, h3, h2, h1, regular, medium, lightBold, bold }) => {
+    // Dynamically create style array based on props
+    const stylesArray: Array<TextStyle | undefined> = [];
 
-    const getSizeOfFont = () => {
-        if (value && value?.length > 1000) return IOS ? scale(fontSizes.caption) : scale(fontSizes.caption - 1);
-        if (value && value?.length > 750) return IOS ? scale(fontSizes.button) : scale(fontSizes.button - 1);
-        if (big) return IOS ? scale(fontSizes.title) : scale(fontSizes.title - 1);
-        else if (bigger) return IOS ? scale(fontSizes.h4) : scale(fontSizes.h4 - 1);
-        else if (small) return IOS ? scale(fontSizes.body) : scale(fontSizes.body - 1);
-        return IOS ? scale(fontSizes.button) : scale(fontSizes.button - 1);
-    };
+    if (caption) {
+        stylesArray.push({ fontSize: fontSizes.caption });
+    }
 
-    const getFontWeight = () => {
-        if (bigger) return fontWeights.bold;
-        else if (big) return fontWeights.medium;
-        else return fontWeights.regular;
-    };
+    if (button) {
+        stylesArray.push({ fontSize: fontSizes.button });
+    }
+
+    if (body) {
+        stylesArray.push({ fontSize: fontSizes.body });
+    }
+
+    if (title) {
+        stylesArray.push({ fontSize: fontSizes.title });
+    }
+
+    if (h3) {
+        stylesArray.push({ fontSize: fontSizes.h3 });
+    }
+
+    if (h2) {
+        stylesArray.push({ fontSize: fontSizes.h2 });
+    }
+
+    if (h1) {
+        stylesArray.push({ fontSize: fontSizes.h1 });
+    }
+
+    if (regular) {
+        stylesArray.push({ fontWeight: fontWeights.regular });
+    }
+
+    if (medium) {
+        stylesArray.push({ fontWeight: fontWeights.medium });
+    }
+
+    if (lightBold) {
+        stylesArray.push({ fontWeight: fontWeights.lightBold });
+    }
+
+    if (bold) {
+        stylesArray.push({ fontWeight: fontWeights.bold });
+    }
 
     return (
-        <Text style={[styles.text,
-        {
-            fontSize: getSizeOfFont(),
-            color: color || bigger || big ? colors.ui.primary : colors.text.primary,
-            fontWeight: getFontWeight(),
-        }
-            , style]}>
+        <Text style={[styles.text, ...stylesArray, { color: color || colors.text.primary }, style]}>
             {value}
         </Text>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     text: {
-    }
-})
+        fontFamily: fonts.body, // Default font family
+    },
+});
 
 export default TextComponent;
