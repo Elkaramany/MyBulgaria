@@ -20,24 +20,18 @@ interface userData {
 }
 
 async function signUp(userData: signUpData): Promise<userData> {
-    try {
-        const response = await API('post', '/auth/local/register', {
-            email: userData.email,
-            username: userData.name,
-            password: userData.password,
-        });
-        console.log(response.data.status.code)
-        return response.data.user
-    } catch (error: any) {
-        console.log('error fl call')
-        Alert.alert(error.data.message[0].messages[0].message)
-        throw error;
-    }
+    const response = await API('post', '/auth/local/register', {
+        email: userData.email,
+        username: userData.name,
+        password: userData.password,
+    });
+
+    return response.data
 }
 
 async function signIn(signInData: signInData): Promise<userData> {
     try {
-        const response = await API('post', '/auth/local', {
+        const response = await API('get', '/auth/local', {
             email: signInData.email,
             password: signInData.password,
         });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 
 import { Button } from '@components';
 import { useAuthActions } from '@redux';
@@ -14,16 +15,23 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, password } = useAuthActions()
+    const { email, password, setId } = useAuthActions()
+
     const trySignIn = async () => {
-        console.log(email, password)
         try {
-            const userData = await signIn({ email, password });
-            console.log('User signed in:', userData);
-            // Now you have access to userData containing UID, email, and name
+            const response = await signIn({ email, password });
+            if (response.statusCode && response.error) {
+                Alert.alert(response.message[0].messages[0].message)
+            } else if (response.user) {
+                // Handle success response
+                console.log(true)
+                setId(response.user.id)
+            } else {
+                // Handle unexpected response format
+                Alert.alert("Error Signing in, please try again later")
+            }
         } catch (error) {
-            console.error('Error signing in:', error);
-            // Handle sign-in error
+            Alert.alert("Network error, please try again later")
         }
     }
 
@@ -31,7 +39,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         <Auth>
             <EmailPassword title='Login' />
             <Button
-                onPress={() => { }}
+                onPress={trySignIn}
                 value='Login'
                 buttonStyle={{ marginTop: scale(30) }}
             />
