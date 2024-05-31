@@ -3,9 +3,9 @@ import { AuthState, onChangeAuthState, resetAuthState } from './index'; // Adjus
 
 export const useAuthActions = () => {
     const dispatch = useDispatch();
-    const { email, password, name, authLoading } = useSelector((state: { auth: AuthState }) => state.auth);
+    const { email, password, name, authLoading, id } = useSelector((state: { auth: AuthState }) => state.auth);
 
-    const setAuthState = ({ prop, value }: { prop: keyof AuthState; value: string | boolean }) => {
+    const setAuthState = ({ prop, value }: { prop: keyof AuthState; value: string | boolean | number }) => {
         dispatch(onChangeAuthState({ prop, value }));
     };
 
@@ -19,6 +19,10 @@ export const useAuthActions = () => {
 
     const setName = (value: string) => {
         dispatch(onChangeAuthState({ prop: 'name', value }));
+    }
+
+    const setId = (value: number) => {
+        dispatch(onChangeAuthState({ prop: 'id', value }));
     }
 
     const switchAuthLoader = (value: boolean) => {
@@ -38,6 +42,8 @@ export const useAuthActions = () => {
         setPassowrd,
         name,
         setName,
+        id,
+        setId,
         switchAuthLoader,
         authLoading
     };

@@ -12,19 +12,25 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.decentdynamix.mybulgaria"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.decentdynamix.mybulgaria"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "packagerOpts": {
-      "sourceExts": ["js", "jsx", "svgx"],
+      "sourceExts": [
+        "js",
+        "jsx",
+        "svgx"
+      ],
       "transformer": "node_modules/react-native-svg-transformer/index.js"
     }
   }

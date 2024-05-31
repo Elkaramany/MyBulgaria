@@ -39,7 +39,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
             <Button
                 onPress={() => navigation.navigate('SignUp')}
                 value='Create account'
-                buttonStyle={{ backgroundColor: 'transparent' }}
+                buttonStyle={{ backgroundColor: colors.bg.primary }}
                 textStyle={{ color: colors.text.secondary }}
             />
         </Auth>

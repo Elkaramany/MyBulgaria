@@ -7,12 +7,26 @@ import { LogoSVG, EyeSVG } from '@assets';
 import { WIDTH, HEIGHT, colors, IOS } from '@config';
 import { scale } from 'react-native-size-matters';
 
-const EmailPassword = ({ title }: { title: string }) => {
+const EmailPassword = ({ title, narrowMargins }: { title: string, narrowMargins?: boolean }) => {
     const { email, setEmail, password, setPassowrd } = useAuthActions()
     const [securePassword, setSecurePassword] = React.useState(true)
 
+    const pageMargins = () => {
+        if (narrowMargins) {
+            return [
+                IOS ? scale(10) : scale(8),
+                IOS ? scale(4) : scale(3),
+            ]
+        }
+
+        return [
+            IOS ? scale(40) : scale(35),
+            IOS ? scale(20) : scale(17),
+        ]
+    }
+
     return (
-        <View>
+        <>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                 <LogoSVG width={WIDTH * 0.23} height={HEIGHT * 0.15} />
 
@@ -26,7 +40,7 @@ const EmailPassword = ({ title }: { title: string }) => {
                 value={title}
                 h1 lightBold
                 color={colors.text.secondary}
-                style={{ marginTop: IOS ? scale(40) : scale(35), marginBottom: IOS ? scale(20) : scale(17) }}
+                style={{ marginTop: pageMargins()[0], marginBottom: pageMargins()[1] }}
             />
 
             <Input
@@ -41,11 +55,11 @@ const EmailPassword = ({ title }: { title: string }) => {
                 onChangeText={setPassowrd}
                 secureTextEntry={securePassword}
                 onRightIconPress={() => setSecurePassword(!securePassword)}
-                rightIcon={EyeSVG}
+                rightIcon={<EyeSVG />}
                 label='Password'
                 placeholder='Password'
             />
-        </View>
+        </>
     )
 }
 

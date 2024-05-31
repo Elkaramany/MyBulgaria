@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, TouchableOpacity } from 'react-native';
 import { colors, fontSizes, fontWeights, IOS } from '@config';
-import { scale } from 'react-native-size-matters';
+import { TextStyle, scale } from 'react-native-size-matters';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Text from './text'
 
@@ -13,10 +13,11 @@ interface Props extends TextInputProps {
     hint?: string
     buttonStyle?: ViewStyle
     onRightIconPress?: () => void
+    labelStyle?: TextStyle | ViewStyle | any
 }
 
 const Input: React.FC<Props> = ({
-    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, ...rest
+    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, labelStyle = {}, ...rest
 }) => {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -31,7 +32,7 @@ const Input: React.FC<Props> = ({
                     value={label}
                     bold
                     button
-                    style={styles.labelStyle}
+                    style={[styles.labelStyle, labelStyle]}
                 />
             }
             <TouchableWithoutFeedback

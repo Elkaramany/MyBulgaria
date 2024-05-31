@@ -3,11 +3,13 @@ export interface AuthState {
     name: string;
     password: string;
     authLoading: boolean;
+    id: number
 }
 
 export const initialState: AuthState = {
     email: '',
     name: '',
     password: '',
-    authLoading: false
+    authLoading: false,
+    id: -1
 };

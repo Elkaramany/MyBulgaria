@@ -1,4 +1,5 @@
-
+import { Alert } from 'react-native';
+import { API } from './index'
 
 interface signUpData {
     email: string;
@@ -12,18 +13,39 @@ interface signInData {
 }
 
 interface userData {
-    uid: string;
+    success: boolean
+    id: number;
     email: string;
     name: string;
 }
 
 async function signUp(userData: signUpData): Promise<userData> {
-    return { uid: '123', email: 'test@test.com', name: 'mostafa' };
-
+    try {
+        const response = await API('post', '/auth/local/register', {
+            email: userData.email,
+            username: userData.name,
+            password: userData.password,
+        });
+        console.log(response.data.status.code)
+        return response.data.user
+    } catch (error: any) {
+        console.log('error fl call')
+        Alert.alert(error.data.message[0].messages[0].message)
+        throw error;
+    }
 }
 
 async function signIn(signInData: signInData): Promise<userData> {
-    return { uid: '123', email: 'test@test.com', name: 'mostafa' };
+    try {
+        const response = await API('post', '/auth/local', {
+            email: signInData.email,
+            password: signInData.password,
+        });
+        return response.data.user;
+    } catch (error: any) {
+        Alert.alert(error.data.message[0].messages[0].message)
+        throw error;
+    }
 }
 
 

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { WIDTH, colors } from '@config'
+import { IOS, WIDTH, colors } from '@config'
 
 const Seperator = () => {
     return (
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
         width: WIDTH * 0.8,
         backgroundColor: colors.text.disabled,
         height: 1,
-        marginVertical: 20
+        marginVertical: IOS ? 20 : 15
     }
-
 })
