@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, ImageSourcePropType, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ImageBackground, ImageSourcePropType} from 'react-native';
 
 interface Props {
     children: React.ReactNode;
@@ -8,11 +8,9 @@ interface Props {
 
 const Background: React.FC<Props> = ({ children, imageSource }) => {
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <ImageBackground source={imageSource} style={{ flex: 1 }}>
-                {children}
-            </ImageBackground>
-        </TouchableWithoutFeedback>
+        <ImageBackground source={imageSource} style={{ flex: 1 }}>
+            {children}
+        </ImageBackground>
     );
 };
 

@@ -1,8 +1,8 @@
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { Input, Text } from '@components';
 import { useAuthActions } from '@redux';
-import { LogoSVG, EyeSVG } from '@assets';
+import { LogoSVG, EyeSVG, EyeUnlockSVG } from '@assets';
 import { WIDTH, HEIGHT, colors, IOS } from '@config';
 import { scale } from 'react-native-size-matters';
 
@@ -36,18 +36,28 @@ const EmailPassword = ({ title, narrowMargins }: { title: string, narrowMargins?
                 onChangeText={setEmail}
                 label='Email'
                 placeholder='Email address'
+                labelStyle={styles.customLabel}
             />
             <Input
                 value={password}
                 onChangeText={setPassowrd}
                 secureTextEntry={securePassword}
                 onRightIconPress={() => setSecurePassword(!securePassword)}
-                rightIcon={<EyeSVG />}
+                rightIcon={securePassword ? <EyeSVG /> : <EyeUnlockSVG />}
                 label='Password'
                 placeholder='Password'
+                labelStyle={styles.customLabel}
             />
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    customLabel: {
+        marginTop: IOS ? 10 : 8,
+        marginBottom: IOS ? 5 : 3,
+    }
+})
+
 
 export default EmailPassword;

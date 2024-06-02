@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Alert } from 'react-native';
 import { Button } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
@@ -32,22 +32,20 @@ const Login: React.FC<Props> = ({ navigation }) => {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <Auth>
-                <EmailPassword title='Login' />
-                <Button
-                    onPress={trySignIn}
-                    value='Login'
-                    buttonStyle={{ marginTop: scale(30) }}
-                />
-                <Button
-                    onPress={() => navigation.navigate('SignUp')}
-                    value='Create account'
-                    buttonStyle={{ backgroundColor: colors.bg.primary }}
-                    textStyle={{ color: colors.text.secondary }}
-                />
-            </Auth>
-        </TouchableWithoutFeedback>
+        <Auth>
+            <EmailPassword title='Login' />
+            <Button
+                onPress={trySignIn}
+                value='Login'
+                buttonStyle={{ marginTop: scale(30) }}
+            />
+            <Button
+                onPress={() => navigation.navigate('SignUp')}
+                value='Create account'
+                buttonStyle={{ backgroundColor: colors.bg.primary }}
+                textStyle={{ color: colors.text.secondary }}
+            />
+        </Auth>
     );
 };
 

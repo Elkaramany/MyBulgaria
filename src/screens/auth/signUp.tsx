@@ -1,10 +1,10 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 
 import { Button, Input } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { colors } from '@config';
+import { colors, IOS } from '@config';
 import { scale } from 'react-native-size-matters';
 import { signUp } from '@request';
 import EmailPassword from './EmailPassword';
@@ -43,6 +43,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
                 onChangeText={setName}
                 label='Username'
                 placeholder='Your name'
+                labelStyle={styles.customLabel}
             />
             <Button
                 onPress={trySignUp}
@@ -59,5 +60,12 @@ const Login: React.FC<Props> = ({ navigation }) => {
         </Auth>
     )
 }
+
+const styles = StyleSheet.create({
+    customLabel: {
+        marginTop: IOS ? 10 : 8,
+        marginBottom: IOS ? 5 : 3,
+    }
+})
 
 export default Login
