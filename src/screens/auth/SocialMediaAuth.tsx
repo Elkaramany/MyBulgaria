@@ -13,7 +13,7 @@ const SocialMediaAuth = () => {
     const [authUrl, setAuthUrl] = React.useState<string | null>(null);
 
     const handleNavigationStateChange = (event: any) => {
-        if (event.url.includes('api.mybgr.bg/auth/discord/callback')) {
+        if (event.url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/discord/callback`)) {
             const urlParams = new URLSearchParams(event.url.split('?')[1]);
             const accessToken = urlParams.get('access_token');
 
@@ -26,17 +26,21 @@ const SocialMediaAuth = () => {
                     setName(user.data.username)
                     setEmail(user.data.email)
                 }).catch((e) => console.log('error  ', e))
-        } else if (event.url.includes('api.mybgr.bg/auth/google/callback')) {
+        } else if (event.url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/google/callback`)) {
             const urlParams = new URLSearchParams(event.url.split('?')[1]);
             console.log(urlParams, ' google params')
         }
     };
 
+    React.useEffect(() => {
+        console.log(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}`)
+    }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <Button
                 value='Continue with Google'
-                onPress={() => setAuthUrl('http://api.mybgr.bg:1337/connect/google')}
+                onPress={() => setAuthUrl(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}:1337/connect/google`)}
                 buttonStyle={styles.container}
                 textStyle={{ color: colors.text.secondary }}
                 icon={<GoogleSVG />}
@@ -44,7 +48,7 @@ const SocialMediaAuth = () => {
 
             <Button
                 value='Continue with Discord'
-                onPress={() => setAuthUrl('http://api.mybgr.bg:1337/connect/discord')}
+                onPress={() => setAuthUrl(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}:1337/connect/discord`)}
                 buttonStyle={styles.container}
                 textStyle={{ color: colors.text.secondary }}
                 icon={<DiscordSVG />}
