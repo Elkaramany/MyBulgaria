@@ -1,15 +1,14 @@
 import React from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert } from 'react-native';
 
-import { Button, Input } from '@components';
+import { Button } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
-import { colors, IOS } from '@config';
+import { colors } from '@config';
 import { scale } from 'react-native-size-matters';
 import { signUp } from '@request';
 import EmailPassword from './EmailPassword';
 import Auth from './Auth';
-import axios from 'axios';
 
 interface Props {
     navigation: AuthStacknavigationProp<'SignUp'>,
@@ -37,14 +36,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
 
     return (
         <Auth>
-            <EmailPassword title='New Account' narrowMargins />
-            <Input
-                value={name}
-                onChangeText={setName}
-                label='Username'
-                placeholder='Your name'
-                labelStyle={styles.customLabel}
-            />
+            <EmailPassword title='New Account' narrowMargins userName />
             <Button
                 onPress={trySignUp}
                 value='Create Account'
@@ -60,12 +52,5 @@ const Login: React.FC<Props> = ({ navigation }) => {
         </Auth>
     )
 }
-
-const styles = StyleSheet.create({
-    customLabel: {
-        marginTop: IOS ? 10 : 8,
-        marginBottom: IOS ? 5 : 3,
-    }
-})
 
 export default Login

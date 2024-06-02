@@ -33,7 +33,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
 
     return (
         <Auth>
-            <EmailPassword title='Login' />
+            <EmailPassword title='Login' userName={false} />
             <Button
                 onPress={trySignIn}
                 value='Login'

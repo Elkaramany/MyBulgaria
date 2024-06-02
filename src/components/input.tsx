@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, TouchableOpacity } from 'react-native';
-import { colors, fontSizes, fontWeights, IOS, WIDTH } from '@config';
+import { colors, fontSizes, fontWeights, globalStyles, IOS, WIDTH } from '@config';
 import { TextStyle, scale } from 'react-native-size-matters';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Text from './text'
@@ -27,8 +27,7 @@ const Input: React.FC<Props> = ({
     const handleBlur = () => setIsFocused(false);
 
     return (
-        <>
-
+        <View>
             {label &&
                 <Text
                     value={label}
@@ -37,38 +36,41 @@ const Input: React.FC<Props> = ({
                     style={[styles.labelStyle, labelStyle]}
                 />
             }
-            <TouchableWithoutFeedback
-                style={[{
-                    backgroundColor: colors.bg.primary,
-                    borderColor: colors.bg.tertiary,
-                    borderWidth: 2,
-                    borderRadius: 15,
-                }, buttonStyle]}
-            >
-                <View style={styles.inputContainer}>
-                    {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
-                    <TextInput
-                        style={styles.input}
-                        placeholder={placeholder}
-                        placeholderTextColor={colors.text.disabled}
-                        value={value}
-                        onChangeText={onChangeText}
-                        secureTextEntry={secureTextEntry}
-                        onSubmitEditing={onSubmitEditing}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        {...rest}
-                    />
-                </View>
-            </TouchableWithoutFeedback>
-            {rightIcon &&
-                <TouchableOpacity
-                    onPress={() => onRightIconPress()}
-                    style={styles.iconContainer}>
-                    {rightIcon}
-                </TouchableOpacity>
-            }
-        </>
+            <View style={globalStyles.rowBetween}>
+                <TouchableWithoutFeedback
+                    style={[{
+                        backgroundColor: colors.bg.primary,
+                        borderColor: colors.bg.tertiary,
+                        borderWidth: 2,
+                        borderRadius: 15,
+                    }, buttonStyle]}
+                >
+                    <View style={styles.inputContainer}>
+                        {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
+                        <TextInput
+                            style={styles.input}
+                            placeholder={placeholder}
+                            placeholderTextColor={colors.text.disabled}
+                            value={value}
+                            onChangeText={onChangeText}
+                            secureTextEntry={secureTextEntry}
+                            onSubmitEditing={onSubmitEditing}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            {...rest}
+                        />
+                    </View>
+                </TouchableWithoutFeedback>
+                {
+                    rightIcon &&
+                    <TouchableOpacity
+                        onPress={() => onRightIconPress()}
+                        style={styles.iconContainer}>
+                        {rightIcon}
+                    </TouchableOpacity>
+                }
+            </View>
+        </View>
     );
 };
 
@@ -78,11 +80,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     iconContainer: {
-        alignItems: 'flex-end',
-        left: WIDTH * 0.7,
-        bottom: IOS ? 32 : 37,
+
+        right: 35,
         width: 20,
-        height: 20
+        height: 20,
     },
     input: {
         paddingVertical: scale(11),

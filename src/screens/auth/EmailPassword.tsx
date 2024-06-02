@@ -6,8 +6,8 @@ import { LogoSVG, EyeSVG, EyeUnlockSVG } from '@assets';
 import { WIDTH, HEIGHT, colors, IOS } from '@config';
 import { scale } from 'react-native-size-matters';
 
-const EmailPassword = ({ title, narrowMargins }: { title: string, narrowMargins?: boolean }) => {
-    const { email, setEmail, password, setPassowrd } = useAuthActions();
+const EmailPassword = ({ title, narrowMargins, userName }: { title: string, narrowMargins?: boolean, userName: boolean }) => {
+    const { email, setEmail, password, setPassowrd, name, setName } = useAuthActions();
     const [securePassword, setSecurePassword] = React.useState(true);
 
     const pageMargins = () => {
@@ -48,14 +48,23 @@ const EmailPassword = ({ title, narrowMargins }: { title: string, narrowMargins?
                 placeholder='Password'
                 labelStyle={styles.customLabel}
             />
+            {userName &&
+                <Input
+                    value={name}
+                    onChangeText={setName}
+                    label='Username'
+                    placeholder='Your name'
+                    labelStyle={styles.customLabel}
+                />
+            }
         </>
     );
 };
 
 const styles = StyleSheet.create({
     customLabel: {
-        marginTop: IOS ? 10 : 8,
-        marginBottom: IOS ? 5 : 3,
+        marginTop: IOS ? 12 : 10,
+        marginBottom: IOS ? 9 : 6.5,
     }
 })
 
