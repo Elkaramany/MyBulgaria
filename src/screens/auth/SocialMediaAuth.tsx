@@ -43,10 +43,6 @@ const SocialMediaAuth = () => {
         }
     };
 
-    React.useEffect(() => {
-        console.log(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}`)
-    }, [])
-
     return (
         <View style={{ flex: 1 }}>
             <Button

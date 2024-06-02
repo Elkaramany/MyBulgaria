@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, TouchableOpacity } from 'react-native';
-import { colors, fontSizes, fontWeights, IOS } from '@config';
+import { colors, fontSizes, fontWeights, IOS, WIDTH } from '@config';
 import { TextStyle, scale } from 'react-native-size-matters';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Text from './text'
@@ -15,6 +15,8 @@ interface Props extends TextInputProps {
     onRightIconPress?: () => void
     labelStyle?: TextStyle | ViewStyle | any
 }
+
+
 
 const Input: React.FC<Props> = ({
     label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, labelStyle = {}, ...rest
@@ -42,7 +44,7 @@ const Input: React.FC<Props> = ({
                     borderWidth: 2,
                     borderRadius: 15,
                 }, buttonStyle]}
-                onPress={() => handleFocus()}>
+            >
                 <View style={styles.inputContainer}>
                     {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
                     <TextInput
@@ -57,14 +59,15 @@ const Input: React.FC<Props> = ({
                         onBlur={handleBlur}
                         {...rest}
                     />
-                    {rightIcon &&
-                        <TouchableOpacity
-                            onPress={() => onRightIconPress()}
-                            style={styles.iconContainer}>
-                            {rightIcon}
-                        </TouchableOpacity>}
                 </View>
             </TouchableWithoutFeedback>
+            {rightIcon &&
+                <TouchableOpacity
+                    onPress={() => onRightIconPress()}
+                    style={styles.iconContainer}>
+                    {rightIcon}
+                </TouchableOpacity>
+            }
         </>
     );
 };
@@ -75,9 +78,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     iconContainer: {
-        flex: 1,
         alignItems: 'flex-end',
-        right: 12
+        left: WIDTH * 0.7,
+        bottom: IOS ? 32 : 37,
+        width: 20,
+        height: 20
     },
     input: {
         paddingVertical: scale(11),

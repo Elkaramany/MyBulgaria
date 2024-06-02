@@ -1,20 +1,19 @@
 import React from 'react';
-import { ImageBackground, ImageSourcePropType } from 'react-native';
-
-import { homeBg } from '@assets';
+import { ImageBackground, ImageSourcePropType, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 interface Props {
-    children: React.ReactNode
-    imageSource: ImageSourcePropType
+    children: React.ReactNode;
+    imageSource: ImageSourcePropType;
 }
 
 const Background: React.FC<Props> = ({ children, imageSource }) => {
-
     return (
-        <ImageBackground source={imageSource} style={{ flex: 1 }}>
-            {children}
-        </ImageBackground>
-    )
-}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <ImageBackground source={imageSource} style={{ flex: 1 }}>
+                {children}
+            </ImageBackground>
+        </TouchableWithoutFeedback>
+    );
+};
 
-export default Background
+export default Background;
