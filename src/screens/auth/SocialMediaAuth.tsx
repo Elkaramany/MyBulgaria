@@ -1,30 +1,36 @@
-import { StyleSheet, View, Linking, ActivityIndicator, Modal, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import React from 'react';
+import axios from 'axios';
 import { WebView } from 'react-native-webview';
-
-import { Button, Text } from '@components'
-import { GoogleSVG, FacebookSVG } from '@assets'
-import { colors } from '@config'
-
+import { Button, Text } from '@components';
+import { GoogleSVG, DiscordSVG } from '@assets';
+import { colors } from '@config';
+import { useAuthActions } from '@redux';
 
 const SocialMediaAuth = () => {
+    const webViewRef = React.useRef<WebView>(null);
+    const { setId, setEmail, setName } = useAuthActions()
     const [authUrl, setAuthUrl] = React.useState<string | null>(null);
 
-    const handleGooglePress = () => {
-        setAuthUrl('http://api.mybgr.bg:1337/connect/google');
-    };
-
     const handleNavigationStateChange = (event: any) => {
-        console.log(JSON.stringify(event), ' herere')
-        if (event.url.includes('yourapp://auth')) {
-            // Extract the authorization code from the URL
-            const authorizationCode = event.url.split('code=')[1];
-            // Use the authorization code to get tokens from your backend server
-            // Handle the successful authentication here
-            setAuthUrl(null);
+        if (event.url.includes('api.mybgr.bg/auth/discord/callback')) {
+            const urlParams = new URLSearchParams(event.url.split('?')[1]);
+            const accessToken = urlParams.get('access_token');
+
+            axios
+                .get(
+                    `https://discordapp.com/api/users/@me`,
+                    { headers: { Authorization: `Bearer ${accessToken}` } }
+                ).then((user) => {
+                    setId(user.data.id)
+                    setName(user.data.username)
+                    setEmail(user.data.email)
+                }).catch((e) => console.log('error  ', e))
+        } else if (event.url.includes('api.mybgr.bg/auth/google/callback')) {
+            const urlParams = new URLSearchParams(event.url.split('?')[1]);
+            console.log(urlParams, ' google params')
         }
     };
-
 
     return (
         <View style={{ flex: 1 }}>
@@ -37,11 +43,11 @@ const SocialMediaAuth = () => {
             />
 
             <Button
-                value='Continue with Facebook'
-                onPress={() => setAuthUrl('http://api.mybgr.bg:1337/connect/facebook')}
+                value='Continue with Discord'
+                onPress={() => setAuthUrl('http://api.mybgr.bg:1337/connect/discord')}
                 buttonStyle={styles.container}
                 textStyle={{ color: colors.text.secondary }}
-                icon={<FacebookSVG />}
+                icon={<DiscordSVG />}
             />
 
             <Modal
@@ -59,6 +65,7 @@ const SocialMediaAuth = () => {
                 </TouchableOpacity>
                 <View style={styles.modalContent}>
                     <WebView
+                        ref={webViewRef}
                         source={{ uri: authUrl || '' }}
                         onNavigationStateChange={handleNavigationStateChange}
                         startInLoadingState
@@ -74,19 +81,21 @@ const SocialMediaAuth = () => {
                 </View>
             </Modal>
         </View>
-    )
-}
+    );
+};
 
-export default SocialMediaAuth
+export default SocialMediaAuth;
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.bg.quaternary
-    }, loading: {
+    },
+    loading: {
         position: 'absolute',
         top: '50%',
         left: '50%',
-    }, topArea: {
+    },
+    topArea: {
         flex: 2,
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
         justifyContent: 'center',
@@ -100,4 +109,10 @@ const styles = StyleSheet.create({
         flex: 8,
         backgroundColor: 'white',
     },
-})
+    infoContainer: {
+        padding: 20,
+        backgroundColor: colors.bg.secondary,
+        borderRadius: 10,
+        marginTop: 20,
+    }
+});

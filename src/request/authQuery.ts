@@ -25,14 +25,13 @@ async function signUp(userData: signUpData): Promise<userData> {
         username: userData.name,
         password: userData.password,
     });
-
     return response.data
 }
 
 async function signIn(signInData: signInData): Promise<userData> {
     try {
-        const response = await API('get', '/auth/local', {
-            email: signInData.email,
+        const response = await API('post', '/auth/local', {
+            identifier: signInData.email,
             password: signInData.password,
         });
         return response.data.user;

@@ -12,7 +12,7 @@ import Auth from './Auth';
 import axios from 'axios';
 
 interface Props {
-    navigation: AuthStacknavigationProp<'SignIn'>,
+    navigation: AuthStacknavigationProp<'SignUp'>,
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
@@ -43,7 +43,6 @@ const Login: React.FC<Props> = ({ navigation }) => {
                 onChangeText={setName}
                 label='Username'
                 placeholder='Your name'
-                labelStyle={{ color: colors.text.primary }}
             />
             <Button
                 onPress={trySignUp}
@@ -54,7 +53,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
             <Button
                 onPress={() => navigation.navigate('SignIn')}
                 value='I already have an account'
-                buttonStyle={{ backgroundColor: colors.bg.primary }}
+                buttonStyle={{ backgroundColor: colors.bg.primary, marginBottom: 10 }}
                 textStyle={{ color: colors.text.secondary }}
             />
         </Auth>

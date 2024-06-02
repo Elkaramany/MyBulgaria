@@ -7,6 +7,7 @@ import EyeSVG from './eye.svg'
 import EyeUnlockSVG from './eyeUnlock.svg'
 import GoogleSVG from './google.svg'
 import FacebookSVG from './facebook.svg'
+import DiscordSVG from './discord.svg'
 
 export {
     logo,
@@ -17,5 +18,6 @@ export {
     EyeSVG,
     EyeUnlockSVG,
     GoogleSVG,
-    FacebookSVG
+    FacebookSVG,
+    DiscordSVG
 }

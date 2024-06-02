@@ -1,5 +1,9 @@
 import React from 'react';
 import { Text, TextStyle, ViewStyle, StyleSheet } from 'react-native';
+import {
+    useFonts,
+    Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { colors, fontSizes, fontWeights, fonts } from '@config';
 
 interface Props {

@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
         width: WIDTH * 0.8,
         backgroundColor: colors.text.disabled,
         height: 1,
-        marginVertical: IOS ? 20 : 15
+        marginVertical: IOS ? 10 : 7
     }
 })

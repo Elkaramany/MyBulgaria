@@ -27,7 +27,7 @@ const EmailPassword = ({ title, narrowMargins }: { title: string, narrowMargins?
 
     return (
         <>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row', top: IOS ? 10 : 8 }}>
                 <LogoSVG width={WIDTH * 0.23} height={HEIGHT * 0.15} />
 
                 <Text

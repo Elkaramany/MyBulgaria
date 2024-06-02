@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     iconContainer: {
         flex: 1,
         alignItems: 'flex-end',
-        paddingRight: 10
+        right: 12
     },
     input: {
         paddingVertical: scale(11),
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         fontSize: fontSizes.button,
         fontWeight: fontWeights.regular,
         color: colors.text.secondary,
+        width: '100%',
     }, labelStyle: {
         color: colors.text.secondary,
         marginTop: IOS ? 15 : 12,

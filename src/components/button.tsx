@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle, TextStyle, View } from 'react-native'
 import Text from './text'
-import { IOS, WIDTH, colors, fontWeights, globalStyles } from '@config'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import { IOS, WIDTH, colors, globalStyles } from '@config'
+import { moderateScale, scale } from 'react-native-size-matters'
 
 interface Props {
     onPress: () => void
@@ -31,7 +31,7 @@ const Button: React.FC<Props> = ({ onPress, value, buttonStyle, textStyle, icon 
 const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: colors.brand.primary,
-        marginTop: IOS ? scale(15) : scale(12),
+        marginVertical: IOS ? scale(7) : scale(5),
         ...globalStyles.centeredContainer,
         borderRadius: moderateScale(15),
         width: WIDTH * 0.8,

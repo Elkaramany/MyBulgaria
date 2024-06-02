@@ -20,6 +20,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
     const trySignIn = async () => {
         try {
             const response = await signIn({ email, password });
+            console.log(JSON.stringify(response), ' bara')
             if (response.statusCode && response.error) {
                 Alert.alert(response.message[0].messages[0].message)
             } else if (response.user) {

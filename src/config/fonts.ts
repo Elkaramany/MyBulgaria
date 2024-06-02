@@ -1,5 +1,5 @@
 export const fonts = {
-    body: "Poppins",
+    body: "Poppins_400Regular",
 };
 
 type FontWeight = {
