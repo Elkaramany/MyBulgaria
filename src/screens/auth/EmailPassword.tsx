@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Input, Text } from '@components';
 import { useAuthActions } from '@redux';
@@ -7,7 +7,7 @@ import { WIDTH, HEIGHT, colors, IOS } from '@config';
 import { scale } from 'react-native-size-matters';
 
 const EmailPassword = ({ title, narrowMargins, userName }: { title: string, narrowMargins?: boolean, userName: boolean }) => {
-    const { email, setEmail, password, setPassowrd, name, setName } = useAuthActions();
+    const { email, setEmail, password, setPassowrd, name, setName, setId } = useAuthActions();
     const [securePassword, setSecurePassword] = React.useState(true);
 
     const pageMargins = () => {
@@ -28,7 +28,15 @@ const EmailPassword = ({ title, narrowMargins, userName }: { title: string, narr
         <>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', top: IOS ? 10 : 8 }}>
                 <LogoSVG width={WIDTH * 0.23} height={HEIGHT * 0.15} />
-                <Text value='Skip' button bold color={colors.text.secondary} />
+                <TouchableOpacity onPress={() => setId(0)}>
+                    <Text
+                        value='Skip'
+                        button
+                        bold
+                        color={colors.text.secondary}
+                    />
+                </TouchableOpacity>
+
             </View>
             <Text value={title} h1 lightBold color={colors.text.secondary} style={{ marginTop: pageMargins()[0], marginBottom: pageMargins()[1] }} />
             <Input
