@@ -8,6 +8,10 @@ import EyeUnlockSVG from './eyeUnlock.svg'
 import GoogleSVG from './google.svg'
 import FacebookSVG from './facebook.svg'
 import DiscordSVG from './discord.svg'
+import HomeIcon from './home_icon.svg'
+import HeartIcon from './heart_icon.svg'
+import ProfileIcon from './profile_icon.svg'
+import PrizeIcon from './prize_icon.svg'
 
 export {
     logo,
@@ -19,5 +23,9 @@ export {
     EyeUnlockSVG,
     GoogleSVG,
     FacebookSVG,
-    DiscordSVG
+    DiscordSVG,
+    HomeIcon,
+    HeartIcon,
+    ProfileIcon,
+    PrizeIcon,
 }

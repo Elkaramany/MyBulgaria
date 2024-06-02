@@ -4,7 +4,7 @@ import axios from 'axios';
 import { WebView } from 'react-native-webview';
 import { Button, Text } from '@components';
 import { GoogleSVG, DiscordSVG } from '@assets';
-import { colors } from '@config';
+import { ANDROID, colors } from '@config';
 import { useAuthActions } from '@redux';
 
 const SocialMediaAuth = () => {
@@ -12,7 +12,7 @@ const SocialMediaAuth = () => {
     const { setId, setEmail, setName } = useAuthActions()
     const [authUrl, setAuthUrl] = React.useState<string | null>(null);
 
-    const handleNavigationStateChange = (event: any) => {
+    const handleNavigationStateChange = async (event: any) => {
         if (event.url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/discord/callback`)) {
             const urlParams = new URLSearchParams(event.url.split('?')[1]);
             const accessToken = urlParams.get('access_token');
@@ -28,7 +28,18 @@ const SocialMediaAuth = () => {
                 }).catch((e) => console.log('error  ', e))
         } else if (event.url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/google/callback`)) {
             const urlParams = new URLSearchParams(event.url.split('?')[1]);
-            console.log(urlParams, ' google params')
+            const accessToken = urlParams.get('access_token');
+            const idToken = urlParams.get('id_token');
+            axios
+                .get(
+                    `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`,
+                ).then((user) => {
+                    console.log(user.data, ' b3d el fetch')
+                    setId(user.data.id)
+                    setName(user.data.given_name)
+                    setEmail(user.data.email)
+                }).catch((e) => console.log('error  ', e))
+
         }
     };
 
@@ -73,7 +84,7 @@ const SocialMediaAuth = () => {
                         source={{ uri: authUrl || '' }}
                         onNavigationStateChange={handleNavigationStateChange}
                         startInLoadingState
-                        userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                        userAgent={ANDROID ? 'Chrome/18.0.1025.133 Mobile Safari/535.19' : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'}
                         renderLoading={() => (
                             <ActivityIndicator
                                 color="blue"

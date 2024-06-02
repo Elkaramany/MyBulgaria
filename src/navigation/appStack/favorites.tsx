@@ -2,19 +2,19 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { Cart } from '@screens'
+import { Favorites } from '@screens'
 
 const Stack = createStackNavigator();
 
-const CartStackNavigator = () => {
+const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}
-            initialRouteName={'CartIndex'}
+            initialRouteName={'FavoritesIndex'}
         >
-            <Stack.Screen name="CartIndex" component={Cart} />
+            <Stack.Screen name="FavoritesIndex" component={Favorites} />
 
         </Stack.Navigator>
     );
 };
 
-export default CartStackNavigator;
+export default HomeStackNavigator;

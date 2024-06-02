@@ -6,8 +6,8 @@ import { Image, StyleSheet, View } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
 
 import Home from './home'
-import Cart from './cart'
-import Settings from './settings'
+import Prizes from './prizes'
+import Profile from './profile'
 
 import { globalStyles, colors } from "@config";
 import { logo } from '@assets'
@@ -49,7 +49,7 @@ export default () => {
 
             <BottomTab.Screen
                 name={"Cart"}
-                component={Cart}
+                component={Prizes}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
@@ -67,7 +67,7 @@ export default () => {
 
             <BottomTab.Screen
                 name={"Settings"}
-                component={Settings}
+                component={Profile}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
