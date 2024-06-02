@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Container } from '@components'
+import { HomeIcon, PrizeIcon } from '@assets'
 
-const index = () => {
+const Home = () => {
     return (
-        <View>
+        <Container >
             <Text>Home</Text>
-        </View>
+            <PrizeIcon fill={'blue'} />
+        </Container>
     )
 }
 
-export default index
+export default Home
 
 const styles = StyleSheet.create({})

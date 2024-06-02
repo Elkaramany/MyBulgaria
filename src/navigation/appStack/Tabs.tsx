@@ -8,9 +8,11 @@ import { scale, verticalScale } from "react-native-size-matters";
 import Home from './home'
 import Prizes from './prizes'
 import Profile from './profile'
+import Favorites from "./favorites";
 
-import { globalStyles, colors } from "@config";
-import { logo } from '@assets'
+import { globalStyles, colors, IOS, HEIGHT } from "@config";
+import { logo, HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, HomeFillIcon } from '@assets'
+import { Text } from "@components";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -19,14 +21,11 @@ export default () => {
     return (
         <BottomTab.Navigator
             initialRouteName={'Home'}
-            tabB
             screenOptions={{
-                activeTintColor: '#979797',
-                inactiveTintColor: colors.ui.disabled,
                 headerShown: false,
                 tabBarShowLabel: false,
                 unmountOnBlur: true,
-                tabBarStyle: { backgroundColor: colors.bg.primary },
+                tabBarStyle: styles.tabStyle,
             }}
         >
             <BottomTab.Screen
@@ -36,11 +35,8 @@ export default () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View style={styles.bottomTabContainer}>
-                                <Image
-                                    source={logo}
-                                    resizeMode={'contain'}
-                                    style={{ width: 25, height: 25 }}
-                                />
+                                <HomeIcon fill={colors.bg.primary} />
+                                <Text value="Home" button medium />
                             </View>
                         );
                     },
@@ -48,17 +44,29 @@ export default () => {
             />
 
             <BottomTab.Screen
-                name={"Cart"}
+                name={"Favorites"}
+                component={Favorites}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View style={styles.bottomTabContainer}>
+                                <HeartIcon fill={colors.bg.primary} />
+                                <Text value="Favorites" button medium />
+                            </View>
+                        );
+                    },
+                }}
+            />
+
+            <BottomTab.Screen
+                name={"Prizes"}
                 component={Prizes}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View style={styles.bottomTabContainer}>
-                                <Image
-                                    source={logo}
-                                    resizeMode={'contain'}
-                                    style={{ width: 25, height: 25 }}
-                                />
+                                <PrizeIcon fill={colors.bg.primary} />
+                                <Text value="Prizes" button medium />
                             </View>
                         );
                     },
@@ -66,17 +74,14 @@ export default () => {
             />
 
             <BottomTab.Screen
-                name={"Settings"}
+                name={"Profile"}
                 component={Profile}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View style={styles.bottomTabContainer}>
-                                <Image
-                                    source={logo}
-                                    resizeMode={'contain'}
-                                    style={{ width: 25, height: 25 }}
-                                />
+                                <ProfileIcon fill={colors.bg.primary} />
+                                <Text value="Profile" button medium />
                             </View>
                         );
                     },
@@ -89,11 +94,13 @@ export default () => {
 const styles = StyleSheet.create({
     bottomTabContainer: {
         ...globalStyles.centeredContainer,
-        top: verticalScale(5),
-        padding: verticalScale(5)
+        top: IOS ? 8 : 5
     },
     tabText: {
         fontSize: scale(10),
         marginTop: scale(3)
+    }, tabStyle: {
+        backgroundColor: colors.brand.secondary,
+        height: HEIGHT * 0.1,
     }
 })

@@ -9,6 +9,7 @@ import GoogleSVG from './google.svg'
 import FacebookSVG from './facebook.svg'
 import DiscordSVG from './discord.svg'
 import HomeIcon from './home_icon.svg'
+import HomeFillIcon from './home_fill_icon.svg'
 import HeartIcon from './heart_icon.svg'
 import ProfileIcon from './profile_icon.svg'
 import PrizeIcon from './prize_icon.svg'
@@ -25,6 +26,7 @@ export {
     FacebookSVG,
     DiscordSVG,
     HomeIcon,
+    HomeFillIcon,
     HeartIcon,
     ProfileIcon,
     PrizeIcon,

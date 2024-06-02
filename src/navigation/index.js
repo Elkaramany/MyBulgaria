@@ -13,7 +13,7 @@ const MainNavigator = () => {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg.primary }}>
       <NavigationContainer>
-        <Auth />
+        <App />
       </NavigationContainer>
     </View>
   );
