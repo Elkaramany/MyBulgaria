@@ -13,13 +13,14 @@ interface Props extends TextInputProps {
     hint?: string
     buttonStyle?: ViewStyle
     onRightIconPress?: () => void
+    onLeftIconPress?: () => void
     labelStyle?: TextStyle | ViewStyle | any
 }
 
 
 
 const Input: React.FC<Props> = ({
-    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, labelStyle = {}, ...rest
+    label, placeholder, value, onChangeText, secureTextEntry, onSubmitEditing, rightIcon, leftIcon, hint, buttonStyle, onRightIconPress, onLeftIconPress, labelStyle = {}, ...rest
 }) => {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -43,10 +44,19 @@ const Input: React.FC<Props> = ({
                         borderColor: colors.bg.tertiary,
                         borderWidth: 2,
                         borderRadius: 15,
+                        flexDirection: 'row',
+                        alignItems: 'center'
                     }, buttonStyle]}
                 >
+                    {
+                        leftIcon &&
+                        <TouchableOpacity
+                            onPress={() => onLeftIconPress()}
+                            style={[styles.iconContainer, {marginHorizontal: 5}]}>
+                            {leftIcon}
+                        </TouchableOpacity>
+                    }
                     <View style={styles.inputContainer}>
-                        {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
                         <TextInput
                             style={styles.input}
                             placeholder={placeholder}
@@ -65,7 +75,7 @@ const Input: React.FC<Props> = ({
                     rightIcon &&
                     <TouchableOpacity
                         onPress={() => onRightIconPress()}
-                        style={styles.iconContainer}>
+                        style={[styles.iconContainer, { right: 35 }]}>
                         {rightIcon}
                     </TouchableOpacity>
                 }
@@ -81,9 +91,6 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
 
-        right: 35,
-        width: 20,
-        height: 20,
     },
     input: {
         paddingVertical: scale(11),

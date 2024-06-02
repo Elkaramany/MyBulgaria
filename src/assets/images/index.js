@@ -13,6 +13,7 @@ import HomeFillIcon from './home_fill_icon.svg'
 import HeartIcon from './heart_icon.svg'
 import ProfileIcon from './profile_icon.svg'
 import PrizeIcon from './prize_icon.svg'
+import SearchIcon from './search_icon.svg'
 
 export {
     logo,
@@ -30,4 +31,5 @@ export {
     HeartIcon,
     ProfileIcon,
     PrizeIcon,
+    SearchIcon,
 }
