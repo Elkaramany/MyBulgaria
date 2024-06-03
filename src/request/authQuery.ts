@@ -35,6 +35,7 @@ async function signUp(userData: signUpData): Promise<userData> {
 }
 
 async function signIn(signInData: signInData): Promise<userData> {
+    console.log(signInData)
     try {
         const response = await API('post', '/auth/local', {
             identifier: signInData.email,

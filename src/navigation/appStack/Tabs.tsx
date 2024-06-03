@@ -66,7 +66,7 @@ export default () => {
                         return (
                             <View style={styles.bottomTabContainer}>
                                 <PrizeIcon fill={colors.bg.primary} />
-                                <Text value="Prizes" button medium />
+                                <Text value="Ranking" button medium />
                             </View>
                         );
                     },

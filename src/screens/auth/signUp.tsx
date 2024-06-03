@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'react-native';
 
-import { Button } from '@components';
+import { Button, Spinner } from '@components';
 import { useAuthActions } from '@redux';
 import { AuthStacknavigationProp } from '@navigationTypes';
 import { colors } from '@config';
@@ -15,9 +15,10 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, password, name, setName, setId } = useAuthActions()
+    const { email, password, name, setName, setId, authLoading, switchAuthLoader } = useAuthActions()
 
     const trySignUp = async () => {
+        switchAuthLoader(true)
         try {
             const response = await signUp({ email, password, name });
             if (response.statusCode && response.error) {
@@ -31,24 +32,32 @@ const Login: React.FC<Props> = ({ navigation }) => {
             }
         } catch (error) {
             Alert.alert("Network error, please try again later")
+        } finally {
+            switchAuthLoader(false)
         }
     }
 
     return (
         <Auth>
             <EmailPassword title='New Account' narrowMargins userName />
-            <Button
-                onPress={trySignUp}
-                value='Create Account'
-                buttonStyle={{ marginTop: scale(10) }}
-            />
+            {authLoading ?
+                <Spinner />
+                :
+                <>
+                    <Button
+                        onPress={trySignUp}
+                        value='Create Account'
+                        buttonStyle={{ marginTop: scale(10) }}
+                    />
 
-            <Button
-                onPress={() => navigation.navigate('SignIn')}
-                value='I already have an account'
-                buttonStyle={{ backgroundColor: colors.bg.primary, marginBottom: 10 }}
-                textStyle={{ color: colors.text.secondary }}
-            />
+                    <Button
+                        onPress={() => navigation.navigate('SignIn')}
+                        value='I already have an account'
+                        buttonStyle={{ backgroundColor: colors.bg.primary, marginBottom: 10 }}
+                        textStyle={{ color: colors.text.secondary }}
+                    />
+                </>
+            }
         </Auth>
     )
 }
