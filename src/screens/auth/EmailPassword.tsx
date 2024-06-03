@@ -26,7 +26,7 @@ const EmailPassword = ({ title, narrowMargins, userName }: { title: string, narr
 
     return (
         <>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', top: IOS ? 10 : 8 }}>
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row', top: IOS ? 13 : 10 }}>
                 <LogoSVG width={WIDTH * 0.23} height={HEIGHT * 0.15} />
                 <TouchableOpacity onPress={() => setId(0)}>
                     <Text
@@ -45,13 +45,14 @@ const EmailPassword = ({ title, narrowMargins, userName }: { title: string, narr
                 label='Email'
                 placeholder='Email address'
                 labelStyle={styles.customLabel}
+                secureTextEntry={false}
             />
             <Input
                 value={password}
                 onChangeText={setPassowrd}
-                secureTextEntry={securePassword}
                 onRightIconPress={() => setSecurePassword(!securePassword)}
                 rightIcon={securePassword ? <EyeSVG /> : <EyeUnlockSVG />}
+                secureTextEntry={securePassword}
                 label='Password'
                 placeholder='Password'
                 labelStyle={styles.customLabel}

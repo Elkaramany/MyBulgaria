@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Text } from '@components'
+import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Spinner, Text } from '@components'
 
 import { LocationIcon, RightArrowIcon, SearchIcon } from '@assets'
 import { IOS, colors, globalStyles } from '@config';
@@ -24,15 +24,20 @@ interface Props {
 const Map: React.FC<Props> = ({ region, setRegion }) => {
     const [selectedProperty, setSelectedProperty] = React.useState<null | property>(null)
     const [propretyModal, setpropretyModal] = React.useState(false)
+    const [fetchingLoaction, setFetchingLocation] = React.useState(false)
 
     const getUserLocation = async () => {
+        setFetchingLocation(true)
         let location = await getCurrentLoaction()
         if (location) {
             setRegion({ ...region, latitude: location.coords.latitude, longitude: location.coords.longitude })
         }
+        setFetchingLocation(false)
     }
 
-    const truncateTitle = (title: string) => title.length > 8 ? `${title.substring(0, 8)}...` : title;
+    const truncatingLength = IOS ? 10 : 8
+
+    const truncateTitle = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
 
     return (
         <>
@@ -41,9 +46,9 @@ const Map: React.FC<Props> = ({ region, setRegion }) => {
                 initialRegion={getInitialRegion()}
                 region={region}
                 onRegionChange={setRegion}
-                provider={PROVIDER_GOOGLE}
                 showsUserLocation
                 showsMyLocationButton={false}
+                provider={IOS ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
             >
                 {markers.map((marker, index) => {
                     return (
@@ -75,9 +80,13 @@ const Map: React.FC<Props> = ({ region, setRegion }) => {
             <TouchableOpacity
                 onPress={getUserLocation}
                 style={styles.locationPin}>
-                <LocationIcon
-                    fill={colors.ui.error}
-                />
+                {fetchingLoaction ?
+                    <Spinner />
+                    :
+                    <LocationIcon
+                        fill={colors.ui.error}
+                    />
+                }
             </TouchableOpacity>
             {propretyModal && selectedProperty &&
                 <PropertyInfo visible={propretyModal} setVisible={setpropretyModal} property={selectedProperty} />
@@ -102,9 +111,9 @@ const styles = StyleSheet.create({
     }, markerContainer: {
         backgroundColor: colors.brand.primary,
         ...globalStyles.rowBetween,
-        paddingHorizontal: IOS ? 12 : 10,
+        paddingHorizontal: IOS ? 8 : 6,
         borderRadius: 4,
-        paddingVertical: IOS ? 5 : 3,
+        paddingVertical: IOS ? 6 : 4,
         width: 150,
     }
 })

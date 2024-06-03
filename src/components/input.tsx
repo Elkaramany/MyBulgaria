@@ -67,6 +67,7 @@ const Input: React.FC<Props> = ({
                             onSubmitEditing={onSubmitEditing}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
+                            textContentType='oneTimeCode'
                             {...rest}
                         />
                     </View>
@@ -75,7 +76,7 @@ const Input: React.FC<Props> = ({
                     rightIcon &&
                     <TouchableOpacity
                         onPress={() => onRightIconPress()}
-                        style={{ right: 35 }}>
+                        style={{ right: 45, padding: 10 }}>
                         {rightIcon}
                     </TouchableOpacity>
                 }
