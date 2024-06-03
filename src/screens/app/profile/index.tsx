@@ -1,11 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Button, Container } from '@components'
+import { resetAuthState } from '@redux'
+import { colors } from '@config'
 
 const Profile = () => {
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <Container>
+      <Button
+        value='Sign out'
+        onPress={() => resetAuthState()}
+        buttonStyle={{ backgroundColor: colors.ui.error }}
+      />
+    </Container>
   )
 }
 

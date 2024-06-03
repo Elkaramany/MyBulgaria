@@ -13,7 +13,11 @@ const MainNavigator = () => {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg.primary }}>
       <NavigationContainer>
-        <App />
+        {id >= 0 ?
+          <App />
+          :
+          <Auth />
+        }
       </NavigationContainer>
     </View>
   );
