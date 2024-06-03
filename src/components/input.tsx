@@ -28,7 +28,7 @@ const Input: React.FC<Props> = ({
     const handleBlur = () => setIsFocused(false);
 
     return (
-        <View>
+        <>
             {label &&
                 <Text
                     value={label}
@@ -52,7 +52,7 @@ const Input: React.FC<Props> = ({
                         leftIcon &&
                         <TouchableOpacity
                             onPress={() => onLeftIconPress()}
-                            style={[styles.iconContainer, {marginHorizontal: 5}]}>
+                            style={[styles.iconContainer, { marginHorizontal: 5 }]}>
                             {leftIcon}
                         </TouchableOpacity>
                     }
@@ -75,12 +75,12 @@ const Input: React.FC<Props> = ({
                     rightIcon &&
                     <TouchableOpacity
                         onPress={() => onRightIconPress()}
-                        style={[styles.iconContainer, { right: 35 }]}>
+                        style={{ right: 35 }}>
                         {rightIcon}
                     </TouchableOpacity>
                 }
             </View>
-        </View>
+        </>
     );
 };
 
@@ -88,9 +88,6 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    iconContainer: {
-
     },
     input: {
         paddingVertical: scale(11),

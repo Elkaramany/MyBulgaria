@@ -1,15 +1,12 @@
 import React from 'react';
 import { Text, TextStyle, ViewStyle, StyleSheet } from 'react-native';
-import {
-    useFonts,
-    Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
 import { colors, fontSizes, fontWeights, fonts } from '@config';
 
 interface Props {
     value: string;
     color?: string;
     style?: TextStyle | ViewStyle | Array<ViewStyle | TextStyle> | Array<TextStyle | undefined>;
+    small?: boolean
     caption?: boolean; // Prop to specify caption font size
     button?: boolean; // Prop to specify button font size
     body?: boolean; // Prop to specify body font size
@@ -23,9 +20,13 @@ interface Props {
     bold?: boolean; // Prop to specify bold font weight
 }
 
-const TextComponent: React.FC<Props> = ({ value, color, style, caption, button, body, title, h3, h2, h1, regular, medium, lightBold, bold }) => {
+const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, button, body, title, h3, h2, h1, regular, medium, lightBold, bold }) => {
     // Dynamically create style array based on props
     const stylesArray: Array<TextStyle | undefined> = [];
+
+    if (small) {
+        stylesArray.push({ fontSize: fontSizes.small });
+    }
 
     if (caption) {
         stylesArray.push({ fontSize: fontSizes.caption });

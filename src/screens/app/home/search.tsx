@@ -2,8 +2,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { Input } from '@components'
-import { SearchIcon } from '@assets'
-import { colors } from 'config'
+import { FilterIcon, SearchIcon } from '@assets'
+import { WIDTH, colors } from 'config'
 
 interface Props {
     search: string
@@ -12,15 +12,19 @@ interface Props {
 
 const Index: React.FC<Props> = ({ search, onSearch }) => {
     return (
-        <View>
+        <>
             <Input
                 value={search}
                 onChangeText={onSearch}
                 placeholder='Search'
                 leftIcon={<SearchIcon fill={colors.brand.primary} />}
+                onLeftIconPress={() => { }}
+                rightIcon={<FilterIcon fill={colors.brand.primary} />}
+                onRightIconPress={() => { }}
                 placeholderTextColor={colors.brand.primary}
+                buttonStyle={{ width: WIDTH * 0.8 }}
             />
-        </View>
+        </>
     )
 }
 

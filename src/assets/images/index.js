@@ -14,6 +14,9 @@ import HeartIcon from './heart_icon.svg'
 import ProfileIcon from './profile_icon.svg'
 import PrizeIcon from './prize_icon.svg'
 import SearchIcon from './search_icon.svg'
+import FilterIcon from './filter_icon.svg'
+import LocationIcon from './location_icon.svg'
+import RightArrowIcon from './right_arrow_icon.svg'
 
 export {
     logo,
@@ -32,4 +35,7 @@ export {
     ProfileIcon,
     PrizeIcon,
     SearchIcon,
+    FilterIcon,
+    LocationIcon,
+    RightArrowIcon
 }

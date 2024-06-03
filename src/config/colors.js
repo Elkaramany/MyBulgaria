@@ -23,6 +23,7 @@ export const colors = {
     secondary: "#2D3648",
     tertiary: "#717D96",
     quaternary: "#1E1E1E99",
+    property: "#040509",
     disabled: "#2D364880",
   },
 };

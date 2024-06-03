@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Modal, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
 import { WebView } from 'react-native-webview';
 import { Button, Text } from '@components';
@@ -21,7 +21,7 @@ const SocialMediaAuth = () => {
             setName(response.data.username);
             setEmail(response.data.email);
         } catch (error) {
-            console.error('Discord Auth Error:', error);
+            Alert.alert('Discord Auth Error')
         } finally {
             setAuthUrl(null)
         }
@@ -34,7 +34,7 @@ const SocialMediaAuth = () => {
             setName(response.data.given_name);
             setEmail(response.data.email);
         } catch (error) {
-            console.error('Google Auth Error:', error);
+            Alert.alert('Google Auth Error')
         } finally {
             setAuthUrl(null)
         }

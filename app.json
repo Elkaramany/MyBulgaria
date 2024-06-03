@@ -32,6 +32,14 @@
         "svgx"
       ],
       "transformer": "node_modules/react-native-svg-transformer/index.js"
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
   }
 }
