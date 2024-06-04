@@ -11,15 +11,17 @@ import {
     REGISTER,
 } from 'redux-persist'
 import AuthReducer from './Reducers/AuthReducer';
+import PropertiesReducer from './Reducers/PropertiesReducer';
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: [], // Adjust to match your slice name
+    whitelist: ['auth'], // Adjust to match your slice name
 };
 
 const rootReducer = combineReducers({
-    auth: AuthReducer
+    auth: AuthReducer,
+    properties: PropertiesReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

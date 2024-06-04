@@ -74,3 +74,15 @@ export const markers: property[] = [
         image: 'https://assets.cityexperiences.com/wp-content/uploads/2022/06/Golden-Gate-SF-e1666363626246.jpg',
     },
 ];
+
+export const getNameSuggestions = async () => {
+
+}
+
+export const filterByName = () => {
+
+}
+
+export const getAllProperties = async () => {
+
+}
