@@ -15,3 +15,4 @@ export const API = async (method: string, url: string, data?: any) => {
 }
 
 export * from './authQuery'
+export * from './propertiesQuery'

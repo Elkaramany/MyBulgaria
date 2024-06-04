@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
+import { Container, Text } from '@components'
+import { colors } from 'config'
 
 const Favorites = () => {
   return (
-    <View>
-      <Text>Favorites</Text>
-    </View>
+    <Container>
+      <View style={{ height: 200, backgroundColor: 'red' }} />
+      <Text
+        value='Favorites'
+        h1 bold color={colors.text.secondary}
+      />
+    </Container>
   )
 }
 

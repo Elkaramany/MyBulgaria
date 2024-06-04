@@ -17,6 +17,7 @@ import SearchIcon from './search_icon.svg'
 import FilterIcon from './filter_icon.svg'
 import LocationIcon from './location_icon.svg'
 import RightArrowIcon from './right_arrow_icon.svg'
+import WaveBG from './waveBG.svg'
 
 export {
     logo,
@@ -37,5 +38,6 @@ export {
     SearchIcon,
     FilterIcon,
     LocationIcon,
-    RightArrowIcon
+    RightArrowIcon,
+    WaveBG,
 }

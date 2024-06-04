@@ -1,12 +1,12 @@
 import { StyleSheet, View, Modal, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Text } from '@components'
-import { property } from './utils'
+import { PropertyType } from '@redux'
 import { WIDTH, colors, globalStyles } from 'config'
 import { HeartIcon } from '@assets'
 
 interface Props {
-    property: property
+    property: PropertyType
     visible: boolean
     setVisible: (val: boolean) => void
 }
@@ -23,7 +23,7 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
             <View style={styles.modalContent}>
                 <Image src={property.image} style={styles.propertyImage} />
                 <View style={styles.propertyInfoContainer}>
-                    <Text value={property.title} color={colors.text.property} body medium />
+                    <Text value={property.name} color={colors.text.property} body medium />
                     <Text
                         value='Lorem ipsum dolor sit amet, consectetur  adipiscing elit. Sed diam lectus.'
                         small regular color='#00000080'
@@ -31,7 +31,7 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
 
                     <TouchableOpacity onPress={() => { }} >
                         <Text
-                            value='Check In'
+                            value='View Info'
                             caption body color={colors.text.property}
                             style={{ textDecorationLine: 'underline' }}
                         />

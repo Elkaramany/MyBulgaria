@@ -1,39 +1,24 @@
-import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Spinner, Text } from '@components'
 
 import { LocationIcon, RightArrowIcon, SearchIcon } from '@assets'
 import { IOS, colors, globalStyles } from '@config';
-import { getCurrentLoaction, getInitialRegion, markers, property } from './utils';
+import { getCurrentLoaction, getInitialRegion, Region } from './utils';
 import PropertyInfo from './propertyInfo';
-
-type Region = {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-};
-
+import { PropertyType } from '@redux';
 
 interface Props {
     region: Region
     setRegion: (val: Region) => void
+    properties: PropertyType[]
 }
 
-const Map: React.FC<Props> = ({ region, setRegion }) => {
-    const [selectedProperty, setSelectedProperty] = React.useState<null | property>(null)
+const Map: React.FC<Props> = ({ region, setRegion, properties }) => {
+    const [selectedProperty, setSelectedProperty] = React.useState<null | PropertyType>(null)
     const [propretyModal, setpropretyModal] = React.useState(false)
     const [fetchingLoaction, setFetchingLocation] = React.useState(false)
-
-    const getUserLocation = async () => {
-        setFetchingLocation(true)
-        let location = await getCurrentLoaction()
-        if (location) {
-            setRegion({ ...region, latitude: location.coords.latitude, longitude: location.coords.longitude })
-        }
-        setFetchingLocation(false)
-    }
 
     const truncatingLength = IOS ? 10 : 8
 
@@ -50,15 +35,15 @@ const Map: React.FC<Props> = ({ region, setRegion }) => {
                 showsMyLocationButton={false}
                 provider={IOS ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
             >
-                {markers.map((marker, index) => {
+                {properties.map((marker, index) => {
                     return (
                         <Marker
                             //@ts-ignore
                             key={index}
                             coordinate={{
                                 ...region,
-                                latitude: marker.coordinate.latitude,
-                                longitude: marker.coordinate.longitude,
+                                latitude: marker.location.x,
+                                longitude: marker.location.y,
                             }}
                             onPress={() => {
                                 setpropretyModal(true)
@@ -69,7 +54,7 @@ const Map: React.FC<Props> = ({ region, setRegion }) => {
                             <View style={styles.markerContainer}>
                                 <SearchIcon fill={colors.bg.primary} width={16} height={16} />
                                 <Text
-                                    value={truncateTitle(marker.title)} body regular
+                                    value={truncateTitle(marker.name)} body regular
                                 />
                             </View>
                             <RightArrowIcon fill={colors.brand.primary} />
@@ -78,7 +63,7 @@ const Map: React.FC<Props> = ({ region, setRegion }) => {
                 })}
             </MapView>
             <TouchableOpacity
-                onPress={getUserLocation}
+                onPress={() => getCurrentLoaction(setFetchingLocation, region, setRegion)}
                 style={styles.locationPin}>
                 {fetchingLoaction ?
                     <Spinner />

@@ -7,10 +7,24 @@ import { Container, Text } from '@components'
 import { HomeIcon, PrizeIcon } from '@assets'
 import { colors, IOS, WIDTH } from 'config'
 import { getInitialRegion } from './utils'
+import { usePropertiesActions } from '@redux'
+import { fetchAllProperties } from '@request'
 
 const Home = () => {
     const [search, setSearch] = React.useState('')
     const [region, setRegion] = React.useState(getInitialRegion())
+    const { properties, loading, switchPropertiesLoader } = usePropertiesActions()
+
+    React.useEffect(() => {
+
+        const initialFetch = async () => {
+            switchPropertiesLoader(true)
+            let result = await fetchAllProperties()
+            switchPropertiesLoader(false)
+        }
+
+        initialFetch()
+    }, [])
 
     return (
         <Container childContainerStyle={{ marginHorizontal: 0 }}>
@@ -27,7 +41,7 @@ const Home = () => {
                 />
             </View>
 
-            <Map region={region} setRegion={setRegion} />
+            <Map region={region} setRegion={setRegion} properties={properties} />
         </Container>
     )
 }

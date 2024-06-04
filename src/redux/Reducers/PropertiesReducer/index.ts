@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PropertiesState, initialState } from './types';
+import { PropertiesState, PropertyType, initialState } from './types';
 
 const propertiesSlice = createSlice({
     name: 'properties',
     initialState,
     reducers: {
-        onChangePropertiesState(state: any, action: PayloadAction<{ prop: keyof PropertiesState; value: string | boolean | number }>) {
+        onChangePropertiesState(state: any, action: PayloadAction<{ prop: keyof PropertiesState; value: string | boolean | number | PropertyType[] }>) {
             const { prop, value } = action.payload;
             state[prop] = value;
         },
