@@ -1,61 +1,61 @@
-import React from 'react'
-import { View } from 'react-native'
-import { colors, IOS } from '@config';
+import React from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   useFonts,
   Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
 
-//Redux
-import Redux from '@redux'
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/lib/integration/react'
+// Redux
+import Redux from '@redux';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
-//navigation
-import Navigator from '@navigation'
+// Navigation
+import Navigator from '@navigation';
+import { homeBG } from '@assets';
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 export default () => {
-  const [appIsReady, setAppIsReady] = React.useState(false);
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
   });
 
-  React.useEffect(() => {
-    async function prepare() {
-      try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        // Tell the application to render
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
   const onLayoutRootView = React.useCallback(async () => {
-    if (appIsReady && fontsLoaded) {
+    if (fontsLoaded) {
       await SplashScreen.hideAsync();
     }
-  }, [appIsReady, fontsLoaded]);
+  }, [fontsLoaded]);
 
-  if (!appIsReady || !fontsLoaded) {
-    return null;
+  React.useEffect(() => {
+    if (fontsLoaded) {
+      onLayoutRootView();
+    }
+  }, [fontsLoaded, onLayoutRootView]);
+
+  if (!fontsLoaded) {
+    return <Image source={homeBG} style={styles.fullScreenImage} />;
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'red' }} onLayout={onLayoutRootView}>
+    <View style={styles.container}>
       <Provider store={Redux['store']}>
-        <View
-          style={{ flex: 1 }}>
-          <PersistGate loading={null} persistor={Redux['persistor']}>
-            <Navigator />
-          </PersistGate>
-        </View>
+        <PersistGate loading={null} persistor={Redux['persistor']}>
+          <Navigator />
+        </PersistGate>
       </Provider>
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fullScreenImage: {
+    width: '100%',
+    height: '100%',
+  },
+});
