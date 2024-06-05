@@ -62,7 +62,40 @@ type GalleryImage = {
             size: number;
             path: string | null;
             url: string;
-        };
+        },
+        medium: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
+        large: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
+        small: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
         // Other potential image formats (medium, large, small)
     };
     hash: string;
@@ -115,7 +148,40 @@ type ReviewImage = {
             size: number;
             path: string | null;
             url: string;
-        };
+        },
+        medium: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
+        large: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
+        small: {
+            name: string;
+            hash: string;
+            ext: string;
+            mime: string;
+            width: number;
+            height: number;
+            size: number;
+            path: string | null;
+            url: string;
+        },
         // Other potential image formats (medium, large, small)
     };
     hash: string;

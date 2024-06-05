@@ -21,7 +21,10 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
         >
             <TouchableOpacity style={styles.topArea} onPress={() => setVisible(false)} />
             <View style={styles.modalContent}>
-                <Image src={property.image} style={styles.propertyImage} />
+                <Image
+                    src={`${process.env.EXPO_PUBLIC_API_BASE}${property.Avatar.formats.small.url}`}
+                    style={styles.propertyImage}
+                />
                 <View style={styles.propertyInfoContainer}>
                     <Text value={property.name} color={colors.text.property} body medium />
                     <Text

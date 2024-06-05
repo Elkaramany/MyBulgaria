@@ -5,7 +5,6 @@ import { PropertyType } from '@redux';
 async function fetchAllProperties(): Promise<PropertyType[]> {
     try {
         const response = await API('get', '/testpois');
-        console.log(response.data, ' el data bta3t el properties')
         return response.data
     }
     catch (error: any) {

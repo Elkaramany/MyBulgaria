@@ -1,5 +1,8 @@
 import * as Location from 'expo-location';
 import { Alert } from 'react-native';
+import { PropertyType } from '@redux';
+//@ts-ignore
+import stringSimilarity from 'string-similarity';
 
 export type Region = {
     latitude: number;
@@ -32,9 +35,26 @@ export const getInitialRegion = () => {
     }
 }
 
-export const getNameSuggestions = async () => {
+// Function to get the top 3 closest property names
+export const getClosestProperties = (properties: PropertyType[], searchText: string): PropertyType[] => {
+    if (!searchText) {
+        return [];
+    }
 
-}
+    // Calculate similarity scores
+    const similarityScores = properties.map(property => ({
+        property,
+        score: stringSimilarity.compareTwoStrings(property.name, searchText),
+    }));
+
+    // Sort properties based on the similarity score in descending order
+    similarityScores.sort((a, b) => b.score - a.score);
+
+    // Get the top 3 closest properties
+    const top3Properties = similarityScores.slice(0, 3).map(item => item.property);
+
+    return top3Properties;
+};
 
 export const filterByName = () => {
 
