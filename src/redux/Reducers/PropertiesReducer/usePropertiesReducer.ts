@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { PropertiesState, PropertyType, onChangePropertiesState, resetPropertiesState } from './index'; // Adjust the path to your action creators
+import { PropertiesState, PropertyType } from './types';
+import { onChangePropertiesState, resetPropertiesState } from './index'; // Adjust the path to your action creators
 
 export const usePropertiesActions = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,8 @@ export const usePropertiesActions = () => {
         onResetPropertiesState,
         properties,
         setProperties,
-        loading
+        loading,
     };
 };
+
+export type { PropertyType }

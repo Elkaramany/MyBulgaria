@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PropertiesState, PropertyType, initialState } from './types';
+import { PropertiesState, initialState, PropertyType } from './types';
 
 const propertiesSlice = createSlice({
     name: 'properties',
@@ -17,6 +17,5 @@ const propertiesSlice = createSlice({
 });
 
 export const { onChangePropertiesState, resetPropertiesState } = propertiesSlice.actions;
-export * from './types'
 export * from './usePropertiesReducer'
 export default propertiesSlice.reducer;

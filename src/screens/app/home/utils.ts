@@ -1,6 +1,5 @@
 import * as Location from 'expo-location';
 import { Alert } from 'react-native';
-import { PropertyType } from '@redux'
 
 export type Region = {
     latitude: number;
