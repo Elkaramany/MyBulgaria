@@ -19,6 +19,8 @@ import LocationIcon from './location_icon.svg'
 import RightArrowIcon from './right_arrow_icon.svg'
 import WaveBG from './waveBG.svg'
 import LeftArrowIcon from './arrow_left.svg'
+import ShareIcon from './share.svg'
+import StarIcon from './star.svg'
 
 export {
     logo,
@@ -42,4 +44,6 @@ export {
     RightArrowIcon,
     LeftArrowIcon,
     WaveBG,
+    ShareIcon,
+    StarIcon
 }

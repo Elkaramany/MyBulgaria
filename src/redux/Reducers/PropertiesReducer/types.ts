@@ -118,7 +118,7 @@ type Category = {
     updated_at: string;
 };
 
-type Review = {
+export type Review = {
     id: number;
     user: number;
     score: number;

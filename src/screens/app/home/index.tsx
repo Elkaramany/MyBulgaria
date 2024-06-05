@@ -1,16 +1,21 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Keyboard } from 'react-native'
 import React from 'react'
 
 import Search from './search'
 import Map from './map'
 import { Container, Text } from '@components'
-import { HomeIcon, PrizeIcon } from '@assets'
 import { colors, IOS, WIDTH } from 'config'
 import { getClosestProperties, getInitialRegion } from './utils'
 import { PropertyType, usePropertiesActions } from '@redux'
 import { fetchAllProperties } from '@request'
 import useDebounce from './useDebounce'
-const Home = () => {
+import { MainStackNavigationProp, BottomTabParamList, BottomTabNavigationProp } from '@navigationTypes'
+
+interface Props {
+    navigation: MainStackNavigationProp<'Tabs'>
+}
+
+const Home: React.FC<Props> = ({ navigation }) => {
     const [search, setSearch] = React.useState('')
     const [region, setRegion] = React.useState(getInitialRegion())
     const { properties, loading, switchPropertiesLoader, setProperties } = usePropertiesActions()
@@ -21,7 +26,6 @@ const Home = () => {
         const initialFetch = async () => {
             switchPropertiesLoader(true)
             let result = await fetchAllProperties()
-            console.log(result, 'b3dha')
             setProperties(result)
             switchPropertiesLoader(false)
         }
@@ -39,6 +43,7 @@ const Home = () => {
         setRegion({ ...region, latitude: property.location.x, longitude: property.location.y })
         setSearch(property.name)
         setFilteredProperties([])
+        Keyboard.dismiss()
     }
 
     return (
@@ -71,7 +76,7 @@ const Home = () => {
                 }
             </View>
 
-            <Map region={region} setRegion={setRegion} properties={properties} />
+            <Map region={region} setRegion={setRegion} properties={properties} naviagtion={navigation} />
         </Container>
     )
 }

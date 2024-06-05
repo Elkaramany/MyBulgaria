@@ -8,14 +8,16 @@ import { IOS, colors, globalStyles } from '@config';
 import { getCurrentLoaction, getInitialRegion, Region } from './utils';
 import PropertyInfo from './propertyInfo';
 import { PropertyType } from '@redux';
+import { BottomTabNavigationProp, MainStackNavigationProp } from '@navigationTypes';
 
 interface Props {
     region: Region
     setRegion: (val: Region) => void
     properties: PropertyType[]
+    naviagtion: MainStackNavigationProp<'Tabs'>
 }
 
-const Map: React.FC<Props> = ({ region, setRegion, properties }) => {
+const Map: React.FC<Props> = ({ region, setRegion, properties, naviagtion }) => {
     const [selectedProperty, setSelectedProperty] = React.useState<null | PropertyType>(null)
     const [propretyModal, setpropretyModal] = React.useState(false)
     const [fetchingLoaction, setFetchingLocation] = React.useState(false)
@@ -74,7 +76,12 @@ const Map: React.FC<Props> = ({ region, setRegion, properties }) => {
                 }
             </TouchableOpacity>
             {propretyModal && selectedProperty &&
-                <PropertyInfo visible={propretyModal} setVisible={setpropretyModal} property={selectedProperty} />
+                <PropertyInfo
+                    visible={propretyModal}
+                    setVisible={setpropretyModal}
+                    property={selectedProperty}
+                    onViewDetails={() => naviagtion.navigate('PropertyDetails', { property: selectedProperty })}
+                />
             }
         </>
     )

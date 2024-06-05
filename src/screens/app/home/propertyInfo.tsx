@@ -9,9 +9,10 @@ interface Props {
     property: PropertyType
     visible: boolean
     setVisible: (val: boolean) => void
+    onViewDetails: () => void
 }
 
-const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
+const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible, onViewDetails }) => {
 
     const truncatingLength = IOS ? 125 : 115
 
@@ -38,7 +39,7 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
                         small regular color='#00000080'
                     />
 
-                    <TouchableOpacity onPress={() => { }} >
+                    <TouchableOpacity onPress={onViewDetails} >
                         <Text
                             value='View Info'
                             caption body color={colors.text.property}

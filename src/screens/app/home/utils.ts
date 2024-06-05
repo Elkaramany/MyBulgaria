@@ -56,10 +56,6 @@ export const getClosestProperties = (properties: PropertyType[], searchText: str
     return top3Properties;
 };
 
-export const filterByName = () => {
-
-}
-
 export const getAllProperties = async () => {
 
 }

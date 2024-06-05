@@ -13,8 +13,9 @@ import Favorites from "./favorites";
 import { globalStyles, colors, IOS, HEIGHT, WIDTH } from "@config";
 import { logo, HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, HomeFillIcon } from '@assets'
 import { Text } from "@components";
+import { BottomTabParamList } from "./types";
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const WaveButton = () => {
     return (
