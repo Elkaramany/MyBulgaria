@@ -2,7 +2,7 @@ import { StyleSheet, View, Modal, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Text } from '@components'
 import { PropertyType } from '@redux'
-import { WIDTH, colors, globalStyles } from 'config'
+import { IOS, WIDTH, colors, globalStyles } from 'config'
 import { HeartIcon } from '@assets'
 
 interface Props {
@@ -12,6 +12,12 @@ interface Props {
 }
 
 const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
+
+    const truncatingLength = IOS ? 125 : 115
+
+    const truncateDescriptiopn = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
+
+
     return (
         <Modal
             visible={visible}
@@ -28,7 +34,7 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible }) => {
                 <View style={styles.propertyInfoContainer}>
                     <Text value={property.name} color={colors.text.property} body medium />
                     <Text
-                        value='Lorem ipsum dolor sit amet, consectetur  adipiscing elit. Sed diam lectus.'
+                        value={truncateDescriptiopn(property.description)}
                         small regular color='#00000080'
                     />
 

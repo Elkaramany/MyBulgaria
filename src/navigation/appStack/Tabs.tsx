@@ -9,7 +9,6 @@ import Home from './home'
 import Prizes from './prizes'
 import Profile from './profile'
 import Favorites from "./favorites";
-import CustomTabBar from "./customTabBar";
 
 import { globalStyles, colors, IOS, HEIGHT, WIDTH } from "@config";
 import { logo, HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, HomeFillIcon } from '@assets'
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     bottomTabContainer: {
         ...globalStyles.centeredContainer,
         backgroundColor: colors.brand.secondary,
-        width: WIDTH * 0.3,
+        width: WIDTH * 0.25,
         height: '100%'
     },
     tabText: {
