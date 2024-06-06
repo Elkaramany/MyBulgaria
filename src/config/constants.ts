@@ -42,6 +42,13 @@ const globalStyles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginBottom: verticalScale(15),
+    }, whiteIconBg: {
+        backgroundColor: colors.bg.primary,
+        height: 38,
+        width: 38,
+        borderRadius: 38,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

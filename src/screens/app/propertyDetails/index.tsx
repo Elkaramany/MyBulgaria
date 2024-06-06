@@ -1,10 +1,13 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { MainStackNavigationProp, MainStackRouteProp } from 'navigation/types'
 import { Container, Text } from '@components'
 import { colors, globalStyles } from '@config'
 import { StarIcon } from '@assets'
 import Thumbnail from './thumbnail'
+import Overview from './overview'
+import Todo from './todo'
+import Reviews from './reviews'
 import { calculateAverageScore } from './utils'
 
 interface Props {
@@ -16,18 +19,14 @@ const PropertyDetails: React.FC<Props> = ({ navigation, route }) => {
     const { property } = route.params
 
     return (
-        <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
             <Thumbnail property={property} navigation={navigation} />
-            <Container parentContainerStyle={{ paddingTop: 31 }}>
-                <View style={globalStyles.rowBetween}>
-                    <Text value={property.name} color={'#1E1E1E'} h3 lightBold />
-                    <View style={{ flexDirection: 'row' }}>
-                        <StarIcon fill={'#ECB526'} style={{ right: 8 }} />
-                        <Text value={calculateAverageScore(property.reviews).toString()} regular title color={colors.text.quaternary} />
-                    </View>
-                </View>
+            <Container parentContainerStyle={{ paddingTop: 25 }}>
+                <Overview property={property} />
+                <Todo property={property} />
+                <Reviews reviews={property.reviews} />
             </Container>
-        </View>
+        </ScrollView>
 
     )
 }
@@ -35,11 +34,5 @@ const PropertyDetails: React.FC<Props> = ({ navigation, route }) => {
 export default PropertyDetails
 
 const styles = StyleSheet.create({
-    topIcon: {
-        backgroundColor: colors.bg.primary,
-        height: 38,
-        width: 38,
-        borderRadius: 38,
-        ...globalStyles.centeredContainer
-    }
+
 })

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { PropertiesState, PropertyType, Review } from './types';
+import { PropertiesState, PropertyType, Review, GalleryImage } from './types';
 import { onChangePropertiesState, resetPropertiesState } from './index'; // Adjust the path to your action creators
 
 export const usePropertiesActions = () => {
@@ -32,4 +32,4 @@ export const usePropertiesActions = () => {
     };
 };
 
-export type { PropertyType, Review }
+export type { PropertyType, Review, GalleryImage }

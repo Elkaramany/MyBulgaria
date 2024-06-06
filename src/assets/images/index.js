@@ -21,6 +21,11 @@ import WaveBG from './waveBG.svg'
 import LeftArrowIcon from './arrow_left.svg'
 import ShareIcon from './share.svg'
 import StarIcon from './star.svg'
+import CheckMark from './check_mark.svg'
+import HazardMark from './hazard_mark.svg'
+import StarHalfFilled from './star_half_filled.svg'
+import StarFilled from './star_filled.svg'
+import StarEmpty from './star_empty.svg'
 
 export {
     logo,
@@ -45,5 +50,10 @@ export {
     LeftArrowIcon,
     WaveBG,
     ShareIcon,
-    StarIcon
+    StarIcon,
+    CheckMark,
+    HazardMark,
+    StarHalfFilled,
+    StarFilled,
+    StarEmpty,
 }

@@ -39,7 +39,10 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible, onViewDe
                         small regular color='#00000080'
                     />
 
-                    <TouchableOpacity onPress={onViewDetails} >
+                    <TouchableOpacity onPress={() => {
+                        setVisible(false)
+                        onViewDetails()
+                    }} >
                         <Text
                             value='View Info'
                             caption body color={colors.text.property}

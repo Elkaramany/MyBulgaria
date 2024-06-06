@@ -44,7 +44,7 @@ type Fact = {
     description: string;
 };
 
-type GalleryImage = {
+export type GalleryImage = {
     id: number;
     name: string;
     alternativeText: string;

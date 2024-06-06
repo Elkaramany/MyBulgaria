@@ -62,7 +62,7 @@ export default () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View style={[styles.bottomTabContainer, { borderTopRightRadius: 25 }]}>
-                                <HeartIcon fill={colors.bg.primary} />
+                                <HeartIcon fill={colors.bg.primary} width={20} height={15} />
                                 <Text value="Favorites" button medium />
                             </View>
                         );

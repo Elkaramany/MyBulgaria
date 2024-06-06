@@ -11,6 +11,7 @@ interface Props {
     button?: boolean; // Prop to specify button font size
     body?: boolean; // Prop to specify body font size
     title?: boolean; // Prop to specify title font size
+    h4?: boolean;
     h3?: boolean; // Prop to specify h3 font size
     h2?: boolean; // Prop to specify h2 font size
     h1?: boolean; // Prop to specify h1 font size
@@ -20,7 +21,7 @@ interface Props {
     bold?: boolean; // Prop to specify bold font weight
 }
 
-const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, button, body, title, h3, h2, h1, regular, medium, lightBold, bold }) => {
+const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, button, body, title, h4, h3, h2, h1, regular, medium, lightBold, bold }) => {
     // Dynamically create style array based on props
     const stylesArray: Array<TextStyle | undefined> = [];
 
@@ -42,6 +43,10 @@ const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, b
 
     if (title) {
         stylesArray.push({ fontSize: fontSizes.title });
+    }
+
+    if (h4) {
+        stylesArray.push({ fontSize: fontSizes.h4 });
     }
 
     if (h3) {
