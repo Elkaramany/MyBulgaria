@@ -32,3 +32,13 @@ export const categorizeReviews = (reviews: Review[]): ReviewCounts => {
 
     return counts;
 }
+
+export const transformDate = (dateString: string): string => {
+    const date = new Date(dateString);
+
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = date.getUTCDate().toString().padStart(2, '0');
+    const year = date.getUTCFullYear().toString();
+
+    return `${month}/${day}/${year}`;
+}

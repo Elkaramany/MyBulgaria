@@ -2,8 +2,8 @@ import {
     createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { Image, StyleSheet, View, TouchableWithoutFeedback } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
+import { scale } from "react-native-size-matters";
 
 import Home from './home'
 import Prizes from './prizes'
@@ -11,7 +11,7 @@ import Profile from './profile'
 import Favorites from "./favorites";
 
 import { globalStyles, colors, IOS, HEIGHT, WIDTH } from "@config";
-import { logo, HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, HomeFillIcon } from '@assets'
+import { HomeIcon, PrizeIcon, ProfileIcon, HeartIcon } from '@assets'
 import { Text } from "@components";
 import { BottomTabParamList } from "./types";
 
