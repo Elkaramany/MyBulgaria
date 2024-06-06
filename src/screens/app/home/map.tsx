@@ -1,13 +1,14 @@
 import React from 'react'
-import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Spinner, Text } from '@components'
-import { LocationIcon, RightArrowIcon, SearchIcon } from '@assets'
-import { IOS, colors, globalStyles } from '@config';
+import { Spinner } from '@components'
+import { LocationIcon } from '@assets'
+import { IOS, colors } from '@config';
 import { getCurrentLoaction, getInitialRegion, Region } from './utils';
 import PropertyInfo from './propertyInfo';
 import { PropertyType } from '@redux';
-import { BottomTabNavigationProp, MainStackNavigationProp } from '@navigationTypes';
+import { MainStackNavigationProp } from '@navigationTypes';
+import MarkerComponent from './marker'
 
 interface Props {
     region: Region
@@ -15,31 +16,6 @@ interface Props {
     properties: PropertyType[]
     navigation: MainStackNavigationProp<'Tabs'>
 }
-
-const MarkerComponent: React.FC<{ marker: PropertyType, onPress: () => void, region: Region }> = React.memo(({ marker, onPress, region }) => {
-    const truncatingLength = IOS ? 10 : 8;
-    const truncateTitle = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
-
-    return (
-        <Marker
-            coordinate={{
-                ...region,
-                latitude: marker.location.x,
-                longitude: marker.location.y,
-            }}
-            onPress={onPress}
-            style={{ height: 45, width: 300, flexDirection: 'row', alignItems: 'center' }}
-        >
-            <View style={styles.markerContainer}>
-                <SearchIcon fill={colors.bg.primary} width={16} height={16} />
-                <Text
-                    value={truncateTitle(marker.name)} body regular
-                />
-            </View>
-            <RightArrowIcon fill={colors.brand.primary} />
-        </Marker>
-    );
-});
 
 const Map: React.FC<Props> = ({ region, setRegion, properties, navigation }) => {
     const [selectedProperty, setSelectedProperty] = React.useState<null | PropertyType>(null);
@@ -136,7 +112,8 @@ const styles = StyleSheet.create({
     },
     markerContainer: {
         backgroundColor: colors.brand.primary,
-        ...globalStyles.rowBetween,
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingHorizontal: IOS ? 8 : 6,
         borderRadius: 4,
         paddingVertical: IOS ? 6 : 4,
