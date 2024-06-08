@@ -17,6 +17,7 @@ export const getCurrentLoaction = async (setFetchingLocation: (val: boolean) => 
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
         Alert.alert('Permission to access location was denied');
+        setFetchingLocation(false)
         return;
     }
     let location = await Location.getCurrentPositionAsync({});

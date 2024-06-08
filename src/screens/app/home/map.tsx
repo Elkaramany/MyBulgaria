@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Spinner } from '@components'
 import { LocationIcon } from '@assets'
-import { IOS, colors } from '@config';
+import { IOS, WIDTH, colors } from '@config';
 import { getCurrentLoaction, getInitialRegion, Region } from './utils';
 import PropertyInfo from './propertyInfo';
 import { PropertyType } from '@redux';
@@ -25,8 +25,7 @@ const Map: React.FC<Props> = ({ region, setRegion, properties, navigation }) => 
 
     const handleRegionChangeComplete = (newRegion: Region) => {
         setRegion(newRegion);
-        const { width } = Dimensions.get('window');
-        const newZoomLevel = Math.log2(360 * (width / 256 / newRegion.longitudeDelta));
+        const newZoomLevel = Math.log2(360 * (WIDTH / 256 / newRegion.longitudeDelta));
         setZoomLevel(newZoomLevel);
     };
 
