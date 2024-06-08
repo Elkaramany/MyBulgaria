@@ -27,6 +27,8 @@ import StarHalfFilled from './star_half_filled.svg'
 import StarFilled from './star_filled.svg'
 import StarEmpty from './star_empty.svg'
 import TabShape from './tabShape.svg'
+import BellIcon from './bell.svg'
+import GreyCheck from './grey_check.svg'
 
 export {
     logo,
@@ -57,5 +59,7 @@ export {
     StarHalfFilled,
     StarFilled,
     StarEmpty,
-    TabShape
+    TabShape,
+    BellIcon,
+    GreyCheck
 }

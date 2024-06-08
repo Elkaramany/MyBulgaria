@@ -26,5 +26,6 @@ export const colors = {
     lighSecondary: "#2D3648B2",
     property: "#040509",
     disabled: "#2D364880",
+    overview: '#B1B1B1',
   },
 };

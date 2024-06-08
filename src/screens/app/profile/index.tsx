@@ -1,21 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Image, ScrollView } from 'react-native'
 import React from 'react'
-import { Button, Container } from '@components'
-import { resetAuthState } from '@redux'
-import { colors } from '@config'
+import { Container, Text, Button } from '@components'
+import { resetAuthState, useAuthActions } from '@redux'
+import { HEIGHT, WIDTH, colors, globalStyles } from 'config'
+import { BellIcon, GreyCheck } from '@assets'
+import Overview from './overview'
+import Activites from './activities'
 
-const Profile = () => {
+const Favorites = () => {
+  const { name } = useAuthActions()
+
   return (
     <Container>
-      <Button
-        value='Sign out'
-        onPress={() => resetAuthState()}
-        buttonStyle={{ backgroundColor: colors.ui.error }}
-      />
+      <ScrollView style={{ flex: 1, flexGrow: 1 }}>
+        <Overview />
+        <Activites />
+        <Button
+          value='Sign out'
+          onPress={() => resetAuthState()}
+          buttonStyle={{ backgroundColor: colors.ui.error }}
+        />
+      </ScrollView>
     </Container>
   )
 }
 
-export default Profile
-
-const styles = StyleSheet.create({})
+export default Favorites
