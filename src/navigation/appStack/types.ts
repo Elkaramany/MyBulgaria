@@ -7,6 +7,7 @@ import { PropertyType } from "@redux";
 export type MainStackParamList = {
     Tabs: undefined;
     PropertyDetails: { property: PropertyType };
+    Leaderboard: undefined
 };
 
 export type MainStackNavigationProp<T extends keyof MainStackParamList> = StackNavigationProp<

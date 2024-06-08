@@ -1,11 +1,16 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
-import { Text } from '@components'
+import { Button, Text } from '@components'
 import { useAuthActions } from '@redux'
 import { HEIGHT, WIDTH, colors, globalStyles } from 'config'
 import { BellIcon, GreyCheck } from '@assets'
+import { MainStackNavigationProp } from '@navigationTypes'
 
-const Favorites = () => {
+interface Props {
+    navigation: MainStackNavigationProp<'Tabs'>
+}
+
+const Overview: React.FC<Props> = ({ navigation }) => {
     const { name } = useAuthActions()
 
     const history = (title: string, score: number) => {
@@ -36,6 +41,15 @@ const Favorites = () => {
                 />
 
                 <GreyCheck style={{ right: 35 }} />
+
+                <TouchableOpacity onPress={() => navigation.navigate('Leaderboard')}>
+                    <Text
+                        style={{ textDecorationLine: 'underline' }}
+                        value='Leaderboard'
+                        title
+                        bold
+                        color={colors.text.secondary} />
+                </TouchableOpacity>
             </View>
             <Text
                 value={name} lightBold h2 color={colors.text.secondary}
@@ -59,7 +73,7 @@ const Favorites = () => {
     )
 }
 
-export default Favorites
+export default Overview
 
 const styles = StyleSheet.create({
     bellContainer: {

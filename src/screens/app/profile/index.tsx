@@ -6,14 +6,18 @@ import { HEIGHT, WIDTH, colors, globalStyles } from 'config'
 import { BellIcon, GreyCheck } from '@assets'
 import Overview from './overview'
 import Activites from './activities'
+import { MainStackNavigationProp } from '@navigationTypes'
 
-const Favorites = () => {
-  const { name } = useAuthActions()
+interface Props {
+  navigation: MainStackNavigationProp<'Tabs'>
+}
+
+const Favorites: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Container>
       <ScrollView style={{ flex: 1, flexGrow: 1 }}>
-        <Overview />
+        <Overview navigation={navigation} />
         <Activites />
         <Button
           value='Sign out'
