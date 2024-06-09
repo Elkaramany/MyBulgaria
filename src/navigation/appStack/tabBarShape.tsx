@@ -1,8 +1,8 @@
 import React from "react";
-import { Dimensions, Pressable, View, StyleSheet } from "react-native";
-import { Svg, Path, Circle } from "react-native-svg";
+import { Dimensions, Pressable, View } from "react-native";
+import { Svg, Circle } from "react-native-svg";
 import { Text } from "@components";
-import { HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, TabShape } from '@assets'
+import { HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, TabShape } from '@assets';
 import { WIDTH, colors, globalStyles } from "@config";
 import { scale } from "react-native-size-matters";
 
@@ -20,6 +20,8 @@ function TabsShape({ state, descriptors, navigation }) {
                     zIndex: 1,
                     position: "absolute",
                     bottom: 0,
+                    width: '100%',
+                    backgroundColor: 'transparent',
                 }}
             >
                 {state.routes.map((route, index) => {
@@ -46,7 +48,7 @@ function TabsShape({ state, descriptors, navigation }) {
                         });
                     };
 
-                    const getRouteIcon = (name: 'Home' | 'Favorites' | 'Prizes' | 'Profile') => {
+                    const getRouteIcon = (name) => {
                         if (name === 'Home') return <HomeIcon fill={colors.bg.primary} />;
                         else if (name === 'Favorites') return <HeartIcon fill={colors.bg.primary} />;
                         else if (name === 'Prizes') return <PrizeIcon fill={colors.bg.primary} />;
@@ -66,13 +68,13 @@ function TabsShape({ state, descriptors, navigation }) {
                                 flex: 1,
                                 ...globalStyles.centeredContainer,
                                 height: NAVIGATION_BOTTOM_TABS_HEIGHT,
-
                             }}
                         >
-                            <View style={[globalStyles.centeredContainer, {
-                                left: route.name === 'Prizes' ? 30 : 0,
-                                right: route.name === 'Favorites' ? 30 : 0,
-                            }]}>
+                            <View style={[
+                                globalStyles.centeredContainer,
+                                route.name === 'Favorites' && { transform: [{ translateX: -30 }] },
+                                route.name === 'Prizes' && { transform: [{ translateX: 30 }] },
+                            ]}>
                                 {getRouteIcon(route.name)}
                                 <Text value={route.name} button medium />
                             </View>
@@ -87,6 +89,7 @@ function TabsShape({ state, descriptors, navigation }) {
                     bottom: 0,
                     width: "100%",
                     height: "100%",
+                    backgroundColor: 'transparent',
                 }}
             >
                 <Svg
@@ -94,9 +97,7 @@ function TabsShape({ state, descriptors, navigation }) {
                     width="100%"
                     height={NAVIGATION_BOTTOM_TABS_HEIGHT + 80}
                 >
-                    <TabShape fill={colors.brand.secondary}
-                        width={WIDTH}
-                    />
+                    <TabShape fill={colors.brand.secondary} width={WIDTH} />
                     {
                         state.index === 0 &&
                         <Circle
