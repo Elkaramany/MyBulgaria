@@ -14,25 +14,24 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, password, setId, setName, authLoading, switchAuthLoader } = useAuthActions();
+    const { email, password, setId, setName, authLoading, switchAuthLoader, setJWT, setScore, setVisited, setReviews } = useAuthActions();
+
+    React.useEffect(() => {
+        switchAuthLoader(false)
+    }, [])
 
     const trySignIn = async () => {
         switchAuthLoader(true)
-        try {
-            const response = await signIn({ email, password });
-            if (response.statusCode && response.error) {
-                Alert.alert(response.message[0].messages[0].message);
-            } else if (response.user) {
-                setName(response.user.username)
-                setId(response.user.id);
-            } else {
-                Alert.alert("Error Signing in, please try again later");
-            }
-        } catch (error) {
-            Alert.alert("Network error, please try again later");
-        } finally {
-            switchAuthLoader(false)
+        const response = await signIn({ email, password });
+        if (response) {
+            setName(response.user.username)
+            setId(response.user.id)
+            setJWT(response.jwt)
+            if (response.user.score) setScore(response.user.score)
+            if (response.user.visited.length > 0) setVisited(response.user.visited)
+            if (response.user.reviews.length > 0) setVisited(response.user.reviews)
         }
+        switchAuthLoader(false)
     };
 
     return (

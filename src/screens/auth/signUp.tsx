@@ -15,21 +15,13 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, password, name, setName, setId, authLoading, switchAuthLoader } = useAuthActions()
+    const { email, password, name, authLoading, switchAuthLoader } = useAuthActions()
 
     const trySignUp = async () => {
         switchAuthLoader(true)
         try {
-            const response = await signUp({ email, password, name });
-            if (response.statusCode && response.error) {
-                Alert.alert(response.message[0].messages[0].message)
-            } else if (response.user) {
-                // Handle success response
-                setId(response.user.id)
-            } else {
-                // Handle unexpected response format
-                Alert.alert("Error Signing up, please try again later")
-            }
+            await signUp({ email, password, name });
+            navigation.navigate('SignIn')
         } catch (error) {
             Alert.alert("Network error, please try again later")
         } finally {

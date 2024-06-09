@@ -7,9 +7,9 @@ import { Container, Text } from '@components'
 import { colors, IOS, WIDTH } from 'config'
 import { getClosestProperties, getInitialRegion } from './utils'
 import { PropertyType, usePropertiesActions } from '@redux'
-import { fetchAllProperties } from '@request'
+import { usePropertiesQuery } from '@request'
 import useDebounce from './useDebounce'
-import { MainStackNavigationProp, BottomTabParamList, BottomTabNavigationProp } from '@navigationTypes'
+import { MainStackNavigationProp } from '@navigationTypes'
 
 interface Props {
     navigation: MainStackNavigationProp<'Tabs'>
@@ -18,20 +18,13 @@ interface Props {
 const Home: React.FC<Props> = ({ navigation }) => {
     const [search, setSearch] = React.useState('')
     const [region, setRegion] = React.useState(getInitialRegion())
-    const { properties, loading, switchPropertiesLoader, setProperties } = usePropertiesActions()
+    const { properties, setProperties } = usePropertiesActions()
     const [filteredProperties, setFilteredProperties] = React.useState<PropertyType[]>([])
+    const { properties: queriedProperties, loading, error } = usePropertiesQuery()
 
     React.useEffect(() => {
-
-        const initialFetch = async () => {
-            switchPropertiesLoader(true)
-            let result = await fetchAllProperties()
-            setProperties(result)
-            switchPropertiesLoader(false)
-        }
-
-        initialFetch()
-    }, [])
+        if (queriedProperties && queriedProperties.length > 0) setProperties(queriedProperties)
+    }, [queriedProperties])
 
     // DeBounce Function
     useDebounce(() => {
@@ -76,7 +69,7 @@ const Home: React.FC<Props> = ({ navigation }) => {
                 }
             </View>
 
-            <Map region={region} setRegion={setRegion} properties={properties} naviagtion={navigation} />
+            <Map region={region} setRegion={setRegion} properties={properties} navigation={navigation} />
         </Container>
     )
 }

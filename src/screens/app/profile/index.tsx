@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View, Image, ScrollView } from 'react-native'
 import React from 'react'
 import { Container, Text, Button } from '@components'
-import { resetAuthState, useAuthActions } from '@redux'
+import { useAuthActions } from '@redux'
 import { HEIGHT, WIDTH, colors, globalStyles } from 'config'
 import { BellIcon, GreyCheck } from '@assets'
 import Overview from './overview'
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Favorites: React.FC<Props> = ({ navigation }) => {
+  const { onResetAuthState } = useAuthActions()
 
   return (
     <Container>
@@ -21,7 +22,7 @@ const Favorites: React.FC<Props> = ({ navigation }) => {
         <Activites />
         <Button
           value='Sign out'
-          onPress={() => resetAuthState()}
+          onPress={onResetAuthState}
           buttonStyle={{ backgroundColor: colors.ui.error }}
         />
       </ScrollView>

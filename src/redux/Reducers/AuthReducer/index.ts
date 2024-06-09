@@ -6,7 +6,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        onChangeAuthState(state: any, action: PayloadAction<{ prop: keyof AuthState; value: string | boolean | number }>) {
+        onChangeAuthState(state: any, action: PayloadAction<{ prop: keyof AuthState; value: string | boolean | number | any[] }>) {
             const { prop, value } = action.payload;
             state[prop] = value;
         },
