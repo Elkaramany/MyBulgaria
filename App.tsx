@@ -34,10 +34,6 @@ export default () => {
     }
   }, [fontsLoaded, onLayoutRootView]);
 
-  React.useEffect(() => {
-    console.log(fontsLoaded, fontError)
-  }, [fontsLoaded, fontError]);
-
   if (!fontsLoaded) {
     return <Image source={homeBG} style={styles.fullScreenImage} />;
   }

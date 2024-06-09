@@ -44,7 +44,7 @@ interface User {
     visited: any[]; // Adjust based on the actual type if known
 }
 
-interface JWTObject {
+export interface JWTObject {
     jwt: string;
     user: User;
 }

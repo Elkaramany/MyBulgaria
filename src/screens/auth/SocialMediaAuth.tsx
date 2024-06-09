@@ -1,65 +1,43 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, ActivityIndicator, Modal, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Modal, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
 import { WebView } from 'react-native-webview';
-import { Button, Text } from '@components';
+import { Button, Spinner, Text } from '@components';
 import { GoogleSVG, DiscordSVG } from '@assets';
 import { ANDROID, colors } from '@config';
-import { useAuthActions } from '@redux';
+import { JWTObject } from '@request';
+import useSetUserData from './useSetUserData';
 
 const SocialMediaAuth = () => {
     const webViewRef = useRef<WebView>(null);
-    const { setId, setEmail, setName } = useAuthActions();
     const [authUrl, setAuthUrl] = useState<string | null>(null);
+    const setUserData = useSetUserData();
 
-    const fetchDiscordUser = async (accessToken: string) => {
+    const fetchUserData = async (url: string) => {
         try {
-            const response = await axios.get('https://discordapp.com/api/users/@me', {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            setId(response.data.id);
-            setName(response.data.username);
-            setEmail(response.data.email);
+            const { data }: { data: JWTObject } = await axios.get(url);
+            if (data) setUserData(data);
         } catch (error) {
-            Alert.alert('Discord Auth Error')
+            Alert.alert('Authentication Error');
         } finally {
-            setAuthUrl(null)
-        }
-    };
-
-    const fetchGoogleUser = async (accessToken: string) => {
-        try {
-            const response = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`);
-            setId(response.data.id);
-            setName(response.data.given_name);
-            setEmail(response.data.email);
-        } catch (error) {
-            Alert.alert('Google Auth Error')
-        } finally {
-            setAuthUrl(null)
+            setAuthUrl(null);
         }
     };
 
     const handleNavigationStateChange = (event: any) => {
         const url = event.url;
         if (url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/discord/callback`)) {
-            const urlParams = new URLSearchParams(url.split('?')[1]);
-            const accessToken = urlParams.get('access_token');
-            if (accessToken) fetchDiscordUser(accessToken);
+            fetchUserData(url);
         } else if (url.includes(`${process.env.EXPO_PUBLIC_API_BASE}/auth/google/callback`)) {
-            const urlParams = new URLSearchParams(url.split('?')[1]);
-            const accessToken = urlParams.get('access_token');
-            if (accessToken) fetchGoogleUser(accessToken);
+            fetchUserData(url);
         }
     };
 
     const handleButtonPress = (provider: 'google' | 'discord') => {
-        setAuthUrl(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}:1337/connect/${provider}`);
+        setAuthUrl(`${process.env.EXPO_PUBLIC_API_BASE_HTTP}/connect/${provider}`);
     };
 
-    const renderLoadingIndicator = () => (
-        <ActivityIndicator color={colors.brand.primary} size="large" style={styles.loading} />
-    );
+    const renderLoadingIndicator = () => <Spinner />;
 
     const renderButton = (provider: 'google' | 'discord', text: string, IconComponent: React.ReactNode) => (
         <Button

@@ -11,10 +11,6 @@ interface Props {
 
 const TopThree: React.FC<Props> = ({ items }) => {
 
-    React.useEffect(() => {
-        console.log(items)
-    }, [])
-
     const renderItem = ({ item, index }: any) => {
         return (
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>

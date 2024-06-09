@@ -29,8 +29,8 @@ export const getCurrentLoaction = async (setFetchingLocation: (val: boolean) => 
 
 export const getInitialRegion = () => {
     return {
-        latitude: 51.2065,
-        longitude: -2.105,
+        latitude: 42.7339,
+        longitude: 25.4858,
         latitudeDelta: 1.25,
         longitudeDelta: 1.5,
     }

@@ -8,52 +8,47 @@ import { scale } from 'react-native-size-matters';
 import { signIn } from '@request';
 import EmailPassword from './EmailPassword';
 import Auth from './Auth';
+import useSetUserData from './useSetUserData';
 
 interface Props {
     navigation: AuthStacknavigationProp<'SignIn'>;
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-    const { email, password, setId, setName, authLoading, switchAuthLoader, setJWT, setScore, setVisited, setReviews } = useAuthActions();
+    const { email, password, authLoading, switchAuthLoader } = useAuthActions();
+    const setUserData = useSetUserData();
 
     React.useEffect(() => {
-        switchAuthLoader(false)
-    }, [])
+        switchAuthLoader(false);
+    }, []);
 
     const trySignIn = async () => {
-        switchAuthLoader(true)
+        switchAuthLoader(true);
         const response = await signIn({ email, password });
-        if (response) {
-            setName(response.user.username)
-            setId(response.user.id)
-            setJWT(response.jwt)
-            if (response.user.score) setScore(response.user.score)
-            if (response.user.visited.length > 0) setVisited(response.user.visited)
-            if (response.user.reviews.length > 0) setVisited(response.user.reviews)
-        }
-        switchAuthLoader(false)
+        if (response) setUserData(response);
+        switchAuthLoader(false);
     };
 
     return (
         <Auth>
-            <EmailPassword title='Login' userName={false} />
-            {authLoading ?
+            <EmailPassword title="Login" userName={false} />
+            {authLoading ? (
                 <Spinner />
-                :
+            ) : (
                 <>
                     <Button
                         onPress={trySignIn}
-                        value='Login'
+                        value="Login"
                         buttonStyle={{ marginTop: scale(30) }}
                     />
                     <Button
                         onPress={() => navigation.navigate('SignUp')}
-                        value='Create account'
+                        value="Create account"
                         buttonStyle={{ backgroundColor: colors.bg.primary }}
                         textStyle={{ color: colors.text.secondary }}
                     />
                 </>
-            }
+            )}
         </Auth>
     );
 };

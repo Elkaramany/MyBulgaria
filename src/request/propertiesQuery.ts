@@ -13,7 +13,7 @@ const usePropertiesQuery = () => {
         const fetchProperties = async () => {
             try {
                 const response = await API('get', '/testpois', null, jwt);
-                setProperties(response.data);
+                setProperties(response);
             } catch (error: any) {
                 setError(error.data.message[0].messages[0].message);
                 Alert.alert(error.data.message[0].messages[0].message);
