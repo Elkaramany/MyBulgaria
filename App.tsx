@@ -3,8 +3,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   useFonts,
-  Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
+} from 'expo-font';
 
 // Redux
 import Redux from '@redux';
@@ -19,8 +18,8 @@ import { homeBG } from '@assets';
 SplashScreen.preventAutoHideAsync();
 
 export default () => {
-  let [fontsLoaded] = useFonts({
-    Poppins_400Regular,
+  const [fontsLoaded, fontError] = useFonts({
+    'Poppins-Regular': require('./src/assets/fonts/Poppins-Regular.ttf'),
   });
 
   const onLayoutRootView = React.useCallback(async () => {
@@ -34,6 +33,10 @@ export default () => {
       onLayoutRootView();
     }
   }, [fontsLoaded, onLayoutRootView]);
+
+  React.useEffect(() => {
+    console.log(fontsLoaded, fontError)
+  }, [fontsLoaded, fontError]);
 
   if (!fontsLoaded) {
     return <Image source={homeBG} style={styles.fullScreenImage} />;

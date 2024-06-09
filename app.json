@@ -39,6 +39,14 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Poppins-Regular.ttf"
+          ]
+        }
       ]
     ]
   }
