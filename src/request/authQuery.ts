@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { API } from './index'
+import { API } from './index';
 
 interface signUpData {
     email: string;
@@ -8,12 +8,12 @@ interface signUpData {
 }
 
 interface signInData {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 interface userData {
-    success: boolean
+    success: boolean;
     id: number;
     email: string;
     name: string;
@@ -33,15 +33,15 @@ interface User {
     email: string;
     firstName: string | null;
     id: number;
-    inventory: any[] | null; // Adjust based on the actual type if known
+    inventory: any[] | null;
     lastName: string | null;
     provider: string;
-    reviews: any[]; // Adjust based on the actual type if known
+    reviews: any[];
     role: Role;
     score: number | null;
     updated_at: string;
     username: string;
-    visited: any[]; // Adjust based on the actual type if known
+    visited: any[];
 }
 
 export interface JWTObject {
@@ -56,22 +56,32 @@ async function signUp(userData: signUpData): Promise<userData> {
             username: userData.name,
             password: userData.password,
         });
-        return response.data
-    }
-    catch (error: any) {
-        Alert.alert(error.data.message[0].messages[0].message)
+        return {
+            success: true,
+            id: response.data.user.id,
+            email: response.data.user.email,
+            name: response.data.user.username,
+        };
+    } catch (error: any) {
+        Alert.alert(error.response.data.message[0].messages[0].message);
         throw error;
     }
 }
 
 async function signIn(signInData: signInData): Promise<JWTObject | undefined> {
-    const response = await API('post', '/auth/local', {
-        identifier: signInData.email,
-        password: signInData.password,
-    });
-    if (response && response.jwt) return response;
-    else Alert.alert(response.data.data[0].messages[0].message)
+    try {
+        const response = await API('post', '/auth/local', {
+            identifier: signInData.email,
+            password: signInData.password,
+        });
+        return {
+            jwt: response.data.jwt,
+            user: response.data.user,
+        };
+    } catch (error: any) {
+        Alert.alert(error.response.data.message[0].messages[0].message);
+        throw error;
+    }
 }
 
-
-export { signUp, signIn }
+export { signUp, signIn };
