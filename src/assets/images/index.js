@@ -17,7 +17,6 @@ import SearchIcon from './search_icon.svg'
 import FilterIcon from './filter_icon.svg'
 import LocationIcon from './location_icon.svg'
 import RightArrowIcon from './right_arrow_icon.svg'
-import WaveBG from './waveBG.svg'
 import LeftArrowIcon from './arrow_left.svg'
 import ShareIcon from './share.svg'
 import StarIcon from './star.svg'
@@ -29,6 +28,7 @@ import StarEmpty from './star_empty.svg'
 import TabShape from './tabShape.svg'
 import BellIcon from './bell.svg'
 import GreyCheck from './grey_check.svg'
+import CheckInIcon from './check_in.svg'
 
 export {
     logo,
@@ -51,7 +51,6 @@ export {
     LocationIcon,
     RightArrowIcon,
     LeftArrowIcon,
-    WaveBG,
     ShareIcon,
     StarIcon,
     CheckMark,
@@ -61,5 +60,6 @@ export {
     StarEmpty,
     TabShape,
     BellIcon,
-    GreyCheck
+    GreyCheck,
+    CheckInIcon
 }

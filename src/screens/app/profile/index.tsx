@@ -16,7 +16,7 @@ const Favorites: React.FC<Props> = ({ navigation }) => {
   const { onResetAuthState } = useAuthActions()
 
   return (
-    <Container>
+    <Container parentContainerStyle={{ paddingBottom: 90 }}>
       <ScrollView style={{ flex: 1, flexGrow: 1 }}>
         <Overview navigation={navigation} />
         <Activites />

@@ -87,6 +87,7 @@ const Map: React.FC<Props> = ({ region, setRegion, properties, navigation }) => 
                     visible={propertyModal}
                     setVisible={setPropertyModal}
                     property={selectedProperty}
+                    setSelectedProperty={setSelectedProperty}
                     onViewDetails={() => navigation.navigate('PropertyDetails', { property: selectedProperty })}
                 />
             }

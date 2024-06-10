@@ -1,19 +1,17 @@
 import React from "react";
 import { Dimensions, Pressable, View } from "react-native";
-import { Svg, Circle } from "react-native-svg";
+import { Svg } from "react-native-svg";
 import { Text } from "@components";
 import { HomeIcon, PrizeIcon, ProfileIcon, HeartIcon, TabShape } from '@assets';
 import { WIDTH, colors, globalStyles } from "@config";
-import { scale } from "react-native-size-matters";
 
 const NAVIGATION_BOTTOM_TABS_HEIGHT = 80;
 const { width: wWidth } = Dimensions.get("window");
 
 function TabsShape({ state, descriptors, navigation }) {
-    const tabWidth = wWidth / state.routes.length;
 
     return (
-        <View style={{ height: NAVIGATION_BOTTOM_TABS_HEIGHT + 40, backgroundColor: 'transparent' }}>
+        <>
             <View
                 style={{
                     flexDirection: "row",
@@ -68,12 +66,14 @@ function TabsShape({ state, descriptors, navigation }) {
                                 flex: 1,
                                 ...globalStyles.centeredContainer,
                                 height: NAVIGATION_BOTTOM_TABS_HEIGHT,
+                                backgroundColor: 'transparent'
                             }}
                         >
                             <View style={[
                                 globalStyles.centeredContainer,
                                 route.name === 'Favorites' && { transform: [{ translateX: -30 }] },
                                 route.name === 'Prizes' && { transform: [{ translateX: 30 }] },
+                                { backgroundColor: 'transparent' }
                             ]}>
                                 {getRouteIcon(route.name)}
                                 <Text value={route.name} button medium />
@@ -87,8 +87,7 @@ function TabsShape({ state, descriptors, navigation }) {
                     zIndex: 0,
                     position: "absolute",
                     bottom: 0,
-                    width: "100%",
-                    height: "100%",
+                    height: NAVIGATION_BOTTOM_TABS_HEIGHT + 40,
                     backgroundColor: 'transparent',
                 }}
             >
@@ -98,19 +97,9 @@ function TabsShape({ state, descriptors, navigation }) {
                     height={NAVIGATION_BOTTOM_TABS_HEIGHT + 80}
                 >
                     <TabShape fill={colors.brand.secondary} width={WIDTH} />
-                    {
-                        state.index === 0 &&
-                        <Circle
-                            fill="#69b3a2"
-                            stroke="black"
-                            cx={wWidth / 2}
-                            cy={NAVIGATION_BOTTOM_TABS_HEIGHT / 2}
-                            r="30"
-                        />
-                    }
                 </Svg>
             </View>
-        </View>
+        </>
     );
 }
 
