@@ -11,28 +11,39 @@ interface Props {
     provinces: ProvinceType[];
     visible: boolean;
     setVisible: (val: boolean) => void;
+    onSearch: (cats: number[], provs: number[], dist: number, diff: number[]) => void
+    filteredCategories: number[]
+    setFilteredCategories: (val: number[]) => void
+    filteredProvinces: number[]
+    setFilteredProvinces: (val: number[]) => void
+    distance: number[]
+    setDistance: (val: number[]) => void
+    difficulty: number[]
+    setDifficulty: (val: number[]) => void
 }
 
-const Filters: React.FC<Props> = ({ categories, provinces, visible, setVisible }) => {
-    const [filteredCategories, setFilteredCategories] = useState<number[]>([]);
-    const [filteredProvinces, setFilteredProvinces] = useState<number[]>([]);
-    const [distanceSlider, setDistanceSlider] = useState([9999]);
-    const [difficultySlider, setDifficultySlider] = useState([1, 10]);
+const Filters: React.FC<Props> = ({ categories, provinces, visible,
+    setVisible, onSearch,
+    filteredCategories, filteredProvinces, setFilteredCategories, setFilteredProvinces,
+    distance, setDistance, difficulty, setDifficulty,
+}) => {
 
-    const sliderOneValuesChange = useCallback((values: number[]) => setDistanceSlider(values), []);
-    const multiSliderValuesChange = useCallback((values: number[]) => setDifficultySlider(values), []);
+    const sliderOneValuesChange = useCallback((values: number[]) => setDistance(values), []);
+    const multiSliderValuesChange = useCallback((values: number[]) => setDifficulty(values), []);
 
     const closeModal = useCallback(() => setVisible(false), [setVisible]);
 
     const toggleCategory = useCallback((catId: number) => {
+        //@ts-ignore
         setFilteredCategories(prev =>
-            prev.includes(catId) ? prev.filter(id => id !== catId) : [...prev, catId]
+            prev.includes(catId) ? prev.filter((id: number) => id !== catId) : [...prev, catId]
         );
     }, []);
 
     const toggleProvince = useCallback((provId: number) => {
+        //@ts-ignore
         setFilteredProvinces(prev =>
-            prev.includes(provId) ? prev.filter(id => id !== provId) : [...prev, provId]
+            prev.includes(provId) ? prev.filter((id: number) => id !== provId) : [...prev, provId]
         );
     }, []);
 
@@ -47,11 +58,12 @@ const Filters: React.FC<Props> = ({ categories, provinces, visible, setVisible }
             animationType="slide"
             onRequestClose={closeModal}
         >
+            <TouchableOpacity onPress={closeModal} style={{ height: HEIGHT * 0.17, }} />
             <ScrollView style={styles.modalContent} contentContainerStyle={styles.modalContainer}>
-                {filterTitle(`Distance to POI: ${distanceSlider[0]} KM`)}
+                {filterTitle(`Distance to POI: ${distance[0]} KM`)}
                 <View style={styles.sliderWrapper}>
                     <MultiSlider
-                        values={distanceSlider}
+                        values={distance}
                         sliderLength={WIDTH * 0.8}
                         onValuesChange={sliderOneValuesChange}
                         min={1} max={9999}
@@ -89,10 +101,10 @@ const Filters: React.FC<Props> = ({ categories, provinces, visible, setVisible }
                     ))}
                 </ScrollView>
 
-                {filterTitle(`Difficulty Level: ${difficultySlider[0]}-${difficultySlider[1]}`)}
+                {filterTitle(`Difficulty Level: ${difficulty[0]}-${difficulty[1]}`)}
                 <View style={styles.sliderWrapper}>
                     <MultiSlider
-                        values={difficultySlider}
+                        values={difficulty}
                         sliderLength={WIDTH * 0.8}
                         onValuesChange={multiSliderValuesChange}
                         min={1} max={10}
@@ -109,8 +121,8 @@ const Filters: React.FC<Props> = ({ categories, provinces, visible, setVisible }
                         onPress={() => {
                             setFilteredCategories([]);
                             setFilteredProvinces([]);
-                            setDistanceSlider([9999]);
-                            setDifficultySlider([1, 10]);
+                            setDistance([9999]);
+                            setDifficulty([1, 10]);
                         }}
                         buttonStyle={styles.resetButton}
                         textStyle={styles.resetButtonText}
@@ -118,12 +130,12 @@ const Filters: React.FC<Props> = ({ categories, provinces, visible, setVisible }
 
                     <Button
                         value='Apply filters'
-                        onPress={() => { }}
+                        onPress={() => onSearch(filteredCategories, filteredProvinces, difficulty[0], difficulty)}
                         buttonStyle={styles.applyButton}
                     />
                 </View>
-                <View style={styles.bottomSpacer} />
             </ScrollView>
+            <TouchableOpacity onPress={closeModal} style={{ height: HEIGHT * 0.17, }} />
         </Modal>
     );
 };
@@ -132,9 +144,7 @@ export default Filters;
 
 const styles = StyleSheet.create({
     modalContent: {
-        flex: 1,
-        marginVertical: HEIGHT * 0.2,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
         width: WIDTH,
         alignSelf: 'center',
         borderRadius: 30,
@@ -172,7 +182,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     buttonContainer: {
-        marginTop: 10,
+        marginVertical: 10,
     },
     resetButton: {
         width: '45%',
@@ -184,8 +194,5 @@ const styles = StyleSheet.create({
     applyButton: {
         width: '45%',
         right: '25%',
-    },
-    bottomSpacer: {
-        height: 10,
     },
 });
