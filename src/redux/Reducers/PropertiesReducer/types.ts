@@ -25,7 +25,7 @@ export type PropertyType = {
     facts: Fact[];
     Gallery: GalleryImage[];
     Avatar: GalleryImage;
-    categories: Category[];
+    categories: CategoryType[];
     reviews: Review[];
 };
 
@@ -43,6 +43,8 @@ type Fact = {
     name: string;
     description: string;
 };
+
+
 
 export type GalleryImage = {
     id: number;
@@ -110,11 +112,76 @@ export type GalleryImage = {
     updated_at: string;
 };
 
-type Category = {
+type LocationType = {
+    [key: string]: any; // Adjust the type according to the actual structure of the location object
+};
+
+type FactType = {
+    [key: string]: any; // Adjust the type according to the actual structure of the facts array
+};
+
+type PoiType = {
+    Avatar: string | null;
+    Gallery: any[]; // Adjust the type according to the actual structure of the Gallery array
+    category: number;
+    created_at: string;
+    description: string;
+    difficulty: number;
+    facts: FactType[];
+    id: number;
+    location: LocationType;
+    mountain: string | null;
+    name: string;
+    province: string | null;
+    published_at: string;
+    updated_at: string;
+    visible: boolean;
+};
+
+export type CategoryType = {
+    created_at: string;
     id: number;
     name: string;
+    pois: PoiType[];
     published_at: string;
+    testpois: any[]; // Adjust the type according to the actual structure of the testpois array
+    updated_at: string;
+};
+
+type CityType = {
+    Name: string;
     created_at: string;
+    id: number;
+    province: number;
+    published_at: string;
+    updated_at: string;
+};
+
+type TestPoiType = {
+    Avatar: LocationType; // Adjust the type according to the actual structure of the Avatar object
+    Gallery: any[]; // Adjust the type according to the actual structure of the Gallery array
+    created_at: string;
+    description: string;
+    difficulty: number;
+    facts: FactType[];
+    id: number;
+    location: LocationType;
+    mountain: string | null;
+    name: string;
+    province: number;
+    published_at: string;
+    updated_at: string;
+    visible: boolean;
+};
+
+export type ProvinceType = {
+    Name: string;
+    cities: CityType[];
+    created_at: string;
+    id: number;
+    pois: PoiType[];
+    published_at: string;
+    testpois: TestPoiType[];
     updated_at: string;
 };
 

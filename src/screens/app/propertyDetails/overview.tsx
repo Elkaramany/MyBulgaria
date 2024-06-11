@@ -22,9 +22,9 @@ const Overview: React.FC<Props> = ({ property }) => {
                 </View>
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {property.categories.map((category) => {
+                {property.categories.map((category, index) => {
                     return (
-                        <View style={styles.categoryContainer}>
+                        <View key={index} style={styles.categoryContainer}>
                             <Text
                                 value={category.name} medium button color={colors.text.quaternary}
                             />
