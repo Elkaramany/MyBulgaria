@@ -49,7 +49,12 @@ const globalStyles = StyleSheet.create({
         borderRadius: 38,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    }, iconContainer: {
+        borderWidth: 2,
+        borderColor: colors.brand.primary,
+        borderRadius: 12,
+        padding: 8
+    },
 })
 
 

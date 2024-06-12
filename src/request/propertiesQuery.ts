@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { API } from './index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// @ts-ignore
-import stringSimilarity from 'string-similarity';
 import { CategoryType, PropertyType, useAuthActions, ProvinceType } from '@redux';
 
 const ASYNC_STORAGE_KEYS = {
@@ -71,20 +69,18 @@ const usePropertiesQuery = () => {
     }, [jwt]);
 
     const onFilterPress = () => {
-        console.log('searching')
         setLoading(true)
         const filtered = properties.filter((property) => {
             const isCategoryMatch = filteredCategoryIds.length === 0 || property.categories.some(category => filteredCategoryIds.includes(category.id));
             const isProvinceMatch = filteredProvinceIds.length === 0 || filteredProvinceIds.includes(property.province.id);
-            const isDistanceMatch = distance[0] === 9999 || (property.location.z !== null && property.location.z <= distance[0]);
+            //const isDistanceMatch = distance[0] === 9999 || (property.location.z !== null && property.location.z <= distance[0]);
             const isDifficultyMatch = property.difficulty >= difficulty[0] && property.difficulty <= difficulty[1];
             const isNameMatch = property.name.toLowerCase().includes(search.toLowerCase());
 
-            return isCategoryMatch && isProvinceMatch && isDistanceMatch && isDifficultyMatch && isNameMatch;
+            return isCategoryMatch && isProvinceMatch /*&& isDistanceMatch*/ && isDifficultyMatch && isNameMatch;
         });
 
         setFilteredProperties(filtered);
-        console.log(filteredProperties, ' b3d el search')
         setLoading(false)
     };
 

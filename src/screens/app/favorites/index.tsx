@@ -6,10 +6,9 @@ import { colors } from 'config'
 const Favorites = () => {
   return (
     <Container>
-      <View style={{ height: 200, backgroundColor: 'red' }} />
       <Text
         value='Favorites'
-        h1 bold color={colors.text.secondary}
+        h3 lightBold color={colors.text.secondary}
       />
     </Container>
   )

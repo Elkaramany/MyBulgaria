@@ -15,13 +15,14 @@ interface Props {
     h3?: boolean; // Prop to specify h3 font size
     h2?: boolean; // Prop to specify h2 font size
     h1?: boolean; // Prop to specify h1 font size
+    mega?: boolean
     regular?: boolean; // Prop to specify regular font weight
     medium?: boolean; // Prop to specify medium font weight
     lightBold?: boolean; // Prop to specify light bold font weight
     bold?: boolean; // Prop to specify bold font weight
 }
 
-const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, button, body, title, h4, h3, h2, h1, regular, medium, lightBold, bold }) => {
+const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, button, body, title, h4, h3, h2, h1, mega, regular, medium, lightBold, bold }) => {
     // Dynamically create style array based on props
     const stylesArray: Array<TextStyle | undefined> = [];
 
@@ -59,6 +60,10 @@ const TextComponent: React.FC<Props> = ({ value, color, style, caption, small, b
 
     if (h1) {
         stylesArray.push({ fontSize: fontSizes.h1 });
+    }
+
+    if (mega) {
+        stylesArray.push({ fontSize: fontSizes.mega });
     }
 
     if (regular) {

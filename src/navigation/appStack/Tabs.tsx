@@ -27,7 +27,6 @@ export default () => {
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
-                unmountOnBlur: true,
             }}
             tabBar={(props) => <TabsShape {...props} />}
         >

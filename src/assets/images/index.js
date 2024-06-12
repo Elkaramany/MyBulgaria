@@ -1,7 +1,6 @@
 const logo = require('./logo.jpg')
 const homeBG = require('./home_bg.jpg')
 const authBG = require('./auth_bg.jpg')
-import PlusIcon from './plusIcon.svg'
 import LogoSVG from './logo_svg.svg'
 import EyeSVG from './eye.svg'
 import EyeUnlockSVG from './eyeUnlock.svg'
@@ -29,12 +28,14 @@ import TabShape from './tabShape.svg'
 import BellIcon from './bell.svg'
 import GreyCheck from './grey_check.svg'
 import CheckInIcon from './check_in.svg'
+import PlusIcon from './plus_icon.svg'
+import WarningIcon from './warning_icon.svg'
+import HighLightIcon from './highlight_icon.svg'
 
 export {
     logo,
     homeBG,
     authBG,
-    PlusIcon,
     LogoSVG,
     EyeSVG,
     EyeUnlockSVG,
@@ -61,5 +62,8 @@ export {
     TabShape,
     BellIcon,
     GreyCheck,
-    CheckInIcon
+    CheckInIcon,
+    PlusIcon,
+    WarningIcon,
+    HighLightIcon
 }

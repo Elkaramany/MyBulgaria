@@ -29,7 +29,7 @@ const Overview: React.FC<Props> = ({ navigation }) => {
                     value='Profile' lightBold h3 color={colors.text.secondary}
                 />
 
-                <TouchableOpacity style={styles.bellContainer}>
+                <TouchableOpacity style={globalStyles.iconContainer}>
                     <BellIcon fill={colors.brand.primary} />
                 </TouchableOpacity>
             </View>
@@ -76,12 +76,7 @@ const Overview: React.FC<Props> = ({ navigation }) => {
 export default Overview
 
 const styles = StyleSheet.create({
-    bellContainer: {
-        borderWidth: 2,
-        borderColor: colors.brand.primary,
-        borderRadius: 12,
-        padding: 8
-    }, profileImage: {
+    profileImage: {
         width: WIDTH * 0.36,
         height: HEIGHT * 0.175,
         resizeMode: 'cover',
