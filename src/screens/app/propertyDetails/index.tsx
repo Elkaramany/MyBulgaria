@@ -1,14 +1,11 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 import { MainStackNavigationProp, MainStackRouteProp } from 'navigation/types'
-import { Container, Text } from '@components'
-import { colors, globalStyles } from '@config'
-import { StarIcon } from '@assets'
+import { Container } from '@components'
 import Thumbnail from './thumbnail'
 import Overview from './overview'
 import Todo from './todo'
 import Reviews from './reviews'
-import { calculateAverageScore } from './utils'
 
 interface Props {
     navigation: MainStackNavigationProp<'PropertyDetails'>

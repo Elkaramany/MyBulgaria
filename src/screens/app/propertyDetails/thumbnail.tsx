@@ -11,11 +11,19 @@ import { GalleryImage, PropertyType } from '@redux'
 interface Props {
     property: PropertyType
     navigation: MainStackNavigationProp<'PropertyDetails'>
-
 }
 
-const PropertyDetails: React.FC<Props> = ({ property, navigation }) => {
+const Thumbnail: React.FC<Props> = ({ property, navigation }) => {
     const [currIndex, setCurrIndex] = React.useState(0)
+
+    // Handle default values for missing or invalid property object
+    const defaultProperty: Partial<PropertyType> = {
+        Gallery: [],
+        name: 'Name unavailable',
+        description: 'Description unavailable'
+        // Add more default properties here as needed
+    }
+
     const onViewableItemsChanged = React.useRef(({ viewableItems }: { viewableItems: any }) => {
         if (viewableItems.length > 0) {
             setCurrIndex(viewableItems[0].index);
@@ -27,21 +35,25 @@ const PropertyDetails: React.FC<Props> = ({ property, navigation }) => {
     };
 
     const renderItem = ({ item }: { item: GalleryImage }) => {
+        const imageUrl = item && item.url ? `${process.env.EXPO_PUBLIC_API_BASE}${item.url}` : 'https://cdn.pixabay.com/photo/2014/04/03/00/38/house-308936_640.png';
         return (
             <Image
-                source={{ uri: `${process.env.EXPO_PUBLIC_API_BASE}${item.url}` }}
+                source={{ uri: imageUrl }}
                 style={{ height: HEIGHT * 0.32, width: WIDTH }}
                 resizeMode='cover'
             />
         )
     }
 
+    // Use default property values if property is missing or invalid
+    const { Gallery = [], name = 'Name unavailable', description = 'Description unavailable' } = property || defaultProperty;
+
     return (
         <View>
             <FlatList
                 horizontal
                 pagingEnabled
-                data={property.Gallery}
+                data={Gallery.length === 0 ? [1] : Gallery}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => `${index}`}
                 onViewableItemsChanged={onViewableItemsChanged}
@@ -55,8 +67,8 @@ const PropertyDetails: React.FC<Props> = ({ property, navigation }) => {
                     <TouchableOpacity
                         onPress={() => {
                             Share.share({
-                                message: property.description,
-                                title: property.name
+                                message: description,
+                                title: name
                             })
                         }}
                         style={globalStyles.whiteIconBg}>
@@ -73,14 +85,14 @@ const PropertyDetails: React.FC<Props> = ({ property, navigation }) => {
                 <View />
                 <View style={globalStyles.rowCenter}>
                     {
-                        property.Gallery.map((item, index) => {
-                            if (index === currIndex) return <View style={styles.selectedDot} />
+                        Gallery.map((item, index) => {
+                            if (index === currIndex) return <View style={styles.selectedDot} key={index} />
                             return <View key={index} style={styles.unselectedDot} />
                         })
                     }
                 </View>
                 <View style={styles.indexContainer}>
-                    <Text value={`${currIndex + 1} / ${property.Gallery.length}`}
+                    <Text value={`${currIndex + 1} / ${Gallery.length}`}
                         medium
                         button
                     />
@@ -90,7 +102,7 @@ const PropertyDetails: React.FC<Props> = ({ property, navigation }) => {
     )
 }
 
-export default PropertyDetails
+export default Thumbnail
 
 const styles = StyleSheet.create({
     iconsContainer: {
@@ -99,19 +111,22 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         ...globalStyles.rowBetween,
-    }, unselectedDot: {
+    },
+    unselectedDot: {
         height: 5,
         width: 5,
         borderRadius: 5,
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
         marginRight: 5,
-    }, selectedDot: {
+    },
+    selectedDot: {
         width: 10,
         height: 5,
         borderRadius: 5,
         backgroundColor: colors.bg.primary,
         marginRight: 5,
-    }, indexContainer: {
+    },
+    indexContainer: {
         backgroundColor: '#1E1E1EB2',
         borderRadius: 4,
         width: 47,

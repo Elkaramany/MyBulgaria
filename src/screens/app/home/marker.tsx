@@ -10,7 +10,7 @@ import { PropertyType } from '@redux';
 
 const MarkerComponent: React.FC<{ marker: PropertyType, onPress: () => void, region: Region }> = React.memo(({ marker, onPress, region }) => {
     const truncatingLength = IOS ? 10 : 8;
-    const truncateTitle = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
+    const truncateTitle = (title: string) => title && title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title
 
     return (
         <Marker
@@ -25,7 +25,7 @@ const MarkerComponent: React.FC<{ marker: PropertyType, onPress: () => void, reg
             <View style={styles.markerContainer}>
                 <SearchIcon fill={colors.bg.primary} width={16} height={16} />
                 <Text
-                    value={truncateTitle(marker.name)} body regular style={{ left: 7, top: 2 }}
+                    value={truncateTitle(marker.name) || 'No name'} body regular style={{ left: 7, top: 2 }}
                 />
             </View>
             <RightArrowIcon fill={colors.brand.primary} />

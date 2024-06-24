@@ -17,12 +17,20 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible, onViewDe
 
     const truncatingLength = IOS ? 125 : 115
 
-    const truncateDescriptiopn = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
+    const truncateDescription = (title: string) => title.length > truncatingLength ? `${title.substring(0, truncatingLength)}...` : title;
 
     const closeModal = () => {
         setSelectedProperty(null)
         setVisible(false)
     }
+
+    const {
+        name = 'Name unavailable',
+        description = 'Description unavailable',
+        Avatar
+    } = property || {}
+
+    const imageUrl = Avatar?.formats?.small?.url ? `${process.env.EXPO_PUBLIC_API_BASE}${Avatar.formats.small.url}` : 'https://cdn.pixabay.com/photo/2014/04/03/00/38/house-308936_640.png'
 
     return (
         <Modal
@@ -33,14 +41,20 @@ const PropertyInfo: React.FC<Props> = ({ property, visible, setVisible, onViewDe
         >
             <TouchableOpacity style={styles.topArea} onPress={() => closeModal()} />
             <View style={styles.modalContent}>
-                <Image
-                    src={`${process.env.EXPO_PUBLIC_API_BASE}${property.Avatar.formats.small.url}`}
-                    style={styles.propertyImage}
-                />
+                {imageUrl ? (
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={styles.propertyImage}
+                    />
+                ) : (
+                    <View style={[styles.propertyImage, styles.imagePlaceholder]}>
+                        <Text value="Image unavailable" />
+                    </View>
+                )}
                 <View style={styles.propertyInfoContainer}>
-                    <Text value={property.name} color={colors.text.property} body medium />
+                    <Text value={name} color={colors.text.property} body medium />
                     <Text
-                        value={truncateDescriptiopn(property.description)}
+                        value={truncateDescription(description)}
                         small regular color='#00000080'
                     />
 
@@ -92,6 +106,10 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderTopLeftRadius: 30,
         borderBottomLeftRadius: 30
+    }, imagePlaceholder: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f0f0'
     }, propertyInfoContainer: {
         width: '40%',
     }, checkInButton: {

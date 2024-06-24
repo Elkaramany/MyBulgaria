@@ -12,32 +12,49 @@ interface Props {
 
 const Overview: React.FC<Props> = ({ property }) => {
 
+    // Default values in case property object is missing or invalid
+    const defaultProperty: Partial<PropertyType> = {
+        name: 'Name unavailable',
+        reviews: [],
+        categories: [],
+        description: 'Description unavailable'
+        // Add more default properties here as needed
+    }
+
+    // Destructure property or use default values
+    const {
+        name = 'Name unavailable',
+        reviews = [],
+        categories = [],
+        description = 'Description unavailable'
+    } = property || defaultProperty;
+
     return (
         <>
             <View style={globalStyles.rowBetween}>
-                <Text value={property.name} color={'#1E1E1E'} h3 lightBold />
+                <Text value={name} color={'#1E1E1E'} h3 lightBold />
                 <View style={{ flexDirection: 'row' }}>
                     <StarIcon fill={'#ECB526'} style={{ right: 8 }} />
-                    <Text value={calculateAverageScore(property.reviews).toString()} regular title color={colors.text.quaternary} />
+                    <Text value={calculateAverageScore(reviews).toString()} regular title color={colors.text.quaternary} />
                 </View>
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {property.categories.map((category, index) => {
+                {categories.map((category, index) => {
                     return (
                         <View key={index} style={styles.categoryContainer}>
                             <Text
-                                value={category.name} medium button color={colors.text.quaternary}
+                                value={category.name || 'Category unavailable'} medium button color={colors.text.quaternary}
                             />
                         </View>
                     )
                 })}
             </View>
             <Text
-                value={property.description} button regular color={colors.text.quaternary}
+                value={description} button regular color={colors.text.quaternary}
             />
             <Text value='Suggested duration' button medium color={colors.text.secondary} style={{ marginTop: 10 }} />
             <Text value='1-2 Hours' caption regular color={colors.text.lighSecondary} />
-            <View style={styles.seperator} />
+            <View style={styles.separator} />
         </>
     )
 }
@@ -52,7 +69,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         marginRight: 10,
         marginBottom: 5,
-    }, seperator: {
+    },
+    separator: {
         height: 4,
         backgroundColor: colors.bg.tertiary,
         width: WIDTH * 1.2,
